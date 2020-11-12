@@ -1,3 +1,4 @@
+.expo/
 ios/Pods/
 node_modules/
 .DS_Store
