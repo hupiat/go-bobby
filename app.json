@@ -1,0 +1,12 @@
+{
+  "name": "GoBobby",
+  "displayName": "GoBobby",
+  "expo": {
+    "name": "GoBobby",
+    "slug": "GoBobby",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
