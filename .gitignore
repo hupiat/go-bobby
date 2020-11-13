@@ -1,4 +1,4 @@
-.expo/
+.expo/web
 ios/Pods/
 node_modules/
 .DS_Store

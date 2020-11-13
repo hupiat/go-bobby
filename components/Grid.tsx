@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Dimensions, Image } from 'react-native';
+import { StyleSheet, Dimensions, Image, View } from 'react-native';
+import BrickImage from '../assets/brick_wall.png';
+import PlayerImage from '../assets/player.png';
 
 const EMPTY_CASE = 0;
 const BRICK_CASE = 1;
 const PLAYER_CASE = 2;
-const CASE_NUMBER_WIDTH = 5;
-const CASE_NUMBER_HEIGHT = 10;
-const BRICK_IMAGE = '../assets/brick_wall.png';
-const PLAYER_IMAGE = '../assets/player.png';
+const CASE_NUMBER_WIDTH = 20;
+const CASE_NUMBER_HEIGHT = 20;
 
 interface IProps {
   start: [number, number];
@@ -19,6 +19,7 @@ interface IProps {
 export default function Grid({
   start,
   end,
+  player,
   blocks
 }: IProps) {
   const width = Dimensions.get('window').width;
@@ -52,39 +53,38 @@ export default function Grid({
           }
         }
         return grid;
-      })
+      });
     }
-  }, []);
+    setGrid([...grid]);
+  }, [start, end, player, blocks]);
 
-  const renderColumn = useCallback((column: number[]) => {
+  const renderColumn = (column: number[]) => {
     return column.map((stub, i) => {
-      const top = i * caseHeight;
       if (stub === BRICK_CASE) {
-        return <Image source={require(BRICK_IMAGE)} key={i} style={{
-          position: 'relative',
-          top
+        return <Image source={BrickImage} key={i} style={{
+          flex: column.length
         }} />;
       } else if (stub === PLAYER_CASE) {
-        return <Image source={require(PLAYER_IMAGE)} key={i} style={{
-          position: 'relative',
-          top
+        return <Image source={PlayerImage} key={i} style={{
+          flex: column.length
         }} />;
       } else {
-        return <div key={i} style={{
-          position: 'relative',
-          top
-        }}></div>
+        return <View key={i} style={{
+          flex: column.length
+        }} />
       }
     })
-  }, []);
+  };
+
+  console.log(grid);
 
   return (
     <>
       {
-        grid.map((column, i) => <div style={{
-          position: "absolute",
-          left: i * caseWidth
-        }} key={i}>{renderColumn(column)}</div>)
+        grid.map((column, i) => <View style={{
+          height: '100vh',
+          flex: grid.length
+        }} key={i}>{renderColumn(column)}</View>)
       }
     </>
   )
