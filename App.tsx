@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Grid from './components/Grid';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <Grid start={[0, 0]} end={[3, 3]} player={[2, 2]} />
     </View>
   );
 }
