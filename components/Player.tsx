@@ -2,14 +2,14 @@ import React from "react";
 import { Image, ImageStyle, StyleProp } from 'react-native';
 import PlayerImage from '../assets/player.png';
 
+export type Orientation = 'top' | 'bottom' | 'left' | 'right';
+
 interface IProps {
-  key?: any
   style?: StyleProp<ImageStyle>;
-  orientation?: 'top' | 'bottom' | 'left' | 'right'
+  orientation?: Orientation;
 }
 
 export default function Player({
-  key,
   style,
   orientation = 'top'
 }: IProps) {
@@ -37,6 +37,6 @@ export default function Player({
     }
   }
   return (
-    <Image source={PlayerImage} key={key} style={styleWithOrientation} />
+    <Image source={PlayerImage} style={styleWithOrientation} />
   );
 }

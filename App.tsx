@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Grid from './components/Grid';
+import L1 from './components/levels/L1';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Grid start={[0, 1]} end={[3, 3]} player={[1, 2]} />
+      <L1 />
     </View>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Image, View } from 'react-native';
 import BrickImage from '../assets/brick_wall.png';
-import Player from "./Player";
+import Player, { Orientation } from "./Player";
 
 const EMPTY_CASE = 0;
 const BRICK_CASE = 1;
@@ -9,10 +9,11 @@ const PLAYER_CASE = 2;
 const CASE_NUMBER_WIDTH = 20;
 const CASE_NUMBER_HEIGHT = 20;
 
-interface IProps {
-  start: [number, number];
-  end: [number, number];
+export interface IGridProps {
+  start: [number, number][];
+  end: [number, number][];
   player: [number, number];
+  playerOrientation?: Orientation;
   blocks?: [number, number][];
 }
 
@@ -20,14 +21,15 @@ export default function Grid({
   start,
   end,
   player,
+  playerOrientation,
   blocks
-}: IProps) {
+}: IGridProps) {
   const [grid, setGrid] = useState<number[][]>(Array(CASE_NUMBER_WIDTH));
-  const isStart = useCallback((i: number, j: number) => start[0] === i && start[1] === j, []);
-  const isEnd = useCallback((i: number, j: number) => end[0] === i && end[1] === j, []);
+  const isStart = useCallback((i: number, j: number) => start.some(s => s[0] === i && s[1] === j), []);
+  const isEnd = useCallback((i: number, j: number) => end.some(e => e[0] === i && e[1] === j), []);
   const isPlayer = useCallback((i: number, j: number) => player[0] === i && player[1] === j, []);
   const hasBlock = useCallback((i: number, j: number) => {
-    const hasBlock = blocks && blocks.some(b => b[0] !== i && b[1] !== j) ||
+    const hasBlock = blocks && blocks.some(b => b[0] === i && b[1] === j) ||
       i === 0 ||
       i === CASE_NUMBER_WIDTH - 1 ||
       j === 0 ||
@@ -61,7 +63,7 @@ export default function Grid({
           flex: column.length
         }} />;
       } else if (stub === PLAYER_CASE) {
-        return <Player key={i} style={{
+        return <Player key={i} orientation={playerOrientation} style={{
           flex: column.length
         }} />;
       } else {
@@ -76,7 +78,6 @@ export default function Grid({
     <>
       {
         grid.map((column, i) => <View style={{
-          height: '100vh',
           flex: grid.length
         }} key={i}>{renderColumn(column)}</View>)
       }
