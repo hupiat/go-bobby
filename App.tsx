@@ -5,7 +5,7 @@ import Grid from './components/Grid';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Grid start={[0, 0]} end={[3, 3]} player={[2, 2]} />
+      <Grid start={[0, 1]} end={[3, 3]} player={[1, 2]} />
     </View>
   );
 }

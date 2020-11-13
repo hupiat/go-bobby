@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { StyleSheet, Dimensions, Image, View } from 'react-native';
+import React, { useCallback, useEffect, useState } from "react";
+import { Image, View } from 'react-native';
 import BrickImage from '../assets/brick_wall.png';
-import PlayerImage from '../assets/player.png';
+import Player from "./Player";
 
 const EMPTY_CASE = 0;
 const BRICK_CASE = 1;
@@ -22,14 +22,10 @@ export default function Grid({
   player,
   blocks
 }: IProps) {
-  const width = Dimensions.get('window').width;
-  const height = Dimensions.get('window').height;
-  const caseWidth = useMemo(() => Math.floor(width / CASE_NUMBER_WIDTH), [width]);
-  const caseHeight = useMemo(() => Math.floor(height / CASE_NUMBER_HEIGHT), [height]);
   const [grid, setGrid] = useState<number[][]>(Array(CASE_NUMBER_WIDTH));
-
   const isStart = useCallback((i: number, j: number) => start[0] === i && start[1] === j, []);
   const isEnd = useCallback((i: number, j: number) => end[0] === i && end[1] === j, []);
+  const isPlayer = useCallback((i: number, j: number) => player[0] === i && player[1] === j, []);
   const hasBlock = useCallback((i: number, j: number) => {
     const hasBlock = blocks && blocks.some(b => b[0] !== i && b[1] !== j) ||
       i === 0 ||
@@ -46,7 +42,7 @@ export default function Grid({
         for (let j = 0; j < CASE_NUMBER_HEIGHT; j++) {
           if (hasBlock(i, j)) {
             grid[i][j] = BRICK_CASE;
-          } else if (isStart(i, j)) {
+          } else if (isPlayer(i, j)) {
             grid[i][j] = PLAYER_CASE;
           } else {
             grid[i][j] = EMPTY_CASE;
@@ -58,14 +54,14 @@ export default function Grid({
     setGrid([...grid]);
   }, [start, end, player, blocks]);
 
-  const renderColumn = (column: number[]) => {
+  const renderColumn = useCallback((column: number[]) => {
     return column.map((stub, i) => {
       if (stub === BRICK_CASE) {
         return <Image source={BrickImage} key={i} style={{
           flex: column.length
         }} />;
       } else if (stub === PLAYER_CASE) {
-        return <Image source={PlayerImage} key={i} style={{
+        return <Player key={i} style={{
           flex: column.length
         }} />;
       } else {
@@ -74,9 +70,7 @@ export default function Grid({
         }} />
       }
     })
-  };
-
-  console.log(grid);
+  }, []);
 
   return (
     <>
