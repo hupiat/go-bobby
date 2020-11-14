@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { View, StyleSheet, TouchableOpacity, Button, Dimensions } from "react-native";
 import Grid, { IGridProps } from "./Grid";
 import { Orientation } from "./Player";
@@ -10,6 +10,8 @@ export default function Level({
 }: IGridProps) {
   const [playerOrientation, setPlayerOrientation] = useState<Orientation>('top');
   const [playerPosition, setPlayerPosition] = useState<[number, number]>(start[1] || start[0]);
+  const isPlayerAtStart = useMemo(() => start.some(s =>
+    s[0] === playerPosition[0] && s[1] === playerPosition[1]), [start, playerPosition]);
 
   console.log(playerOrientation);
 
@@ -20,10 +22,10 @@ export default function Level({
           <View style={[styles.gesture, styles.gestureVerticale]}></View>
         </TouchableOpacity>
         <View style={styles.gestureSubContainerHorizontal}>
-          <TouchableOpacity onLongPress={() => setPlayerOrientation('left')}>
+          <TouchableOpacity onLongPress={() => !isPlayerAtStart && setPlayerOrientation('left')}>
             <View style={[styles.gesture, styles.gestureHorizontale]}></View>
           </TouchableOpacity>
-          <TouchableOpacity onLongPress={() => setPlayerOrientation('right')}>
+          <TouchableOpacity onLongPress={() => !isPlayerAtStart && setPlayerOrientation('right')}>
             <View style={[styles.gesture, styles.gestureHorizontale]}></View>
           </TouchableOpacity>
         </View>
