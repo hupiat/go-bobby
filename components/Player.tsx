@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image, ImageStyle, StyleProp } from 'react-native';
-import PlayerImage from '../assets/player.png';
+import PlayerTopImage from '../assets/player_top.png';
+import PlayerLeftImage from '../assets/player_left.png';
+import PlayerBottomImage from '../assets/player_bottom.png';
+import PlayerRightImage from '../assets/player_right.png';
 
 export type Orientation = 'top' | 'bottom' | 'left' | 'right';
 
@@ -13,30 +16,25 @@ export default function Player({
   style,
   orientation = 'top'
 }: IProps) {
-  let styleWithOrientation = style as object;
-  if (orientation !== 'top') {
+  const [source, setSource] = useState<any>(PlayerTopImage);
+  useEffect(() => {
     switch (orientation) {
-      case 'left':
-        styleWithOrientation = {
-          ...styleWithOrientation,
-          transform: 'rotate(-90deg)'
-        };
+      case 'top':
+        setSource(PlayerTopImage);
         break;
-      case 'right':
-        styleWithOrientation = {
-          ...styleWithOrientation,
-          transform: 'rotate(90deg)'
-        };
+      case 'left':
+        setSource(PlayerLeftImage);
         break;
       case 'bottom':
-        styleWithOrientation = {
-          ...styleWithOrientation,
-          transform: 'rotate(180deg)'
-        };
+        setSource(PlayerBottomImage);
+        break;
+      case 'right':
+        setSource(PlayerRightImage);
         break;
     }
-  }
+  }, [orientation]);
+
   return (
-    <Image source={PlayerImage} style={styleWithOrientation} />
+    <Image source={source} style={style} />
   );
 }

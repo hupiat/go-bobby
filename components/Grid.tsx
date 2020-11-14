@@ -64,7 +64,7 @@ export default function Grid({
         }} />;
       } else if (stub === PLAYER_CASE) {
         return <Player key={i} orientation={playerOrientation} style={{
-          flex: column.length
+          flex: column.length,
         }} />;
       } else {
         return <View key={i} style={{
@@ -72,7 +72,7 @@ export default function Grid({
         }} />
       }
     })
-  }, []);
+  }, [playerOrientation]);
 
   return (
     <>
