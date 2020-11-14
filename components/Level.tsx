@@ -16,22 +16,20 @@ export default function Level({
   return (
     <>
       <View style={styles.gestureContainer}>
-        <View style={styles.gestureContainerHorizontal}>
+        <TouchableOpacity onLongPress={() => setPlayerOrientation('top')}>
+          <View style={[styles.gesture, styles.gestureVerticale]}></View>
+        </TouchableOpacity>
+        <View style={styles.gestureSubContainerHorizontal}>
           <TouchableOpacity onLongPress={() => setPlayerOrientation('left')}>
-            <View style={styles.gesture}></View>
+            <View style={[styles.gesture, styles.gestureHorizontale]}></View>
           </TouchableOpacity>
           <TouchableOpacity onLongPress={() => setPlayerOrientation('right')}>
-            <View style={styles.gesture}></View>
+            <View style={[styles.gesture, styles.gestureHorizontale]}></View>
           </TouchableOpacity>
         </View>
-        <View style={styles.gestureContainerVertical}>
-          <TouchableOpacity onLongPress={() => setPlayerOrientation('top')}>
-            <View style={styles.gesture}></View>
-          </TouchableOpacity>
-          <TouchableOpacity onLongPress={() => setPlayerOrientation('bottom')}>
-            <View style={styles.gesture}></View>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onLongPress={() => setPlayerOrientation('bottom')}>
+          <View style={[styles.gesture, styles.gestureVerticale]}></View>
+        </TouchableOpacity>
       </View>
       <Grid start={start} end={end} player={playerPosition} playerOrientation={playerOrientation} blocks={blocks} />
     </>
@@ -47,32 +45,24 @@ const styles = StyleSheet.create({
     bottom: 0,
     zIndex: 10
   },
-  gestureContainerVertical: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+  gestureSubContainerHorizontal: {
     display: 'flex',
-    alignItems: 'center',
-  },
-  gestureContainerHorizontal: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    zIndex: 11
+    flexDirection: 'row'
   },
   gesture: {
+    backgroundColor: '#4b6584',
+    opacity: 0.1
+  },
+  gestureVerticale: {
+    paddingTop: Dimensions.get("window").height / 8,
+    paddingBottom: Dimensions.get("window").height / 8,
+    paddingLeft: Dimensions.get("window").width / 2,
+    paddingRight: Dimensions.get("window").width / 2,
+  },
+  gestureHorizontale: {
     paddingTop: Dimensions.get("window").height / 4,
     paddingBottom: Dimensions.get("window").height / 4,
     paddingLeft: Dimensions.get("window").width / 4,
     paddingRight: Dimensions.get("window").width / 4,
-    backgroundColor: "red",
-    opacity: 0.1
   }
 })
