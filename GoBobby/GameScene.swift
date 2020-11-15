@@ -9,6 +9,7 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
+    let grid = Grid(playerX: 10, playerY: 10)
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
