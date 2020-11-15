@@ -24,9 +24,6 @@ export default function useMovements(
           return blocks.some(b => b[0] === playerPosition[0] + 1 && b[1] === playerPosition[1]);
       }
     }
-    console.log(playerPosition);
-    console.log(blocks);
-    setPlayerOrientationState(orientation);
     setPlayerPosition(position => {
       while (!isHittingBlock()) {
         switch (orientation) {
@@ -44,6 +41,7 @@ export default function useMovements(
             break;
         }
       }
+      setPlayerOrientationState(orientation);
       return [...position];
     });
   };
