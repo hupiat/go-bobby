@@ -8,7 +8,7 @@ const EMPTY_CASE = 0;
 const BRICK_CASE = 1;
 const PLAYER_CASE = 2;
 const CASE_NUMBER_WIDTH = 20;
-const CASE_NUMBER_HEIGHT = 25;
+const CASE_NUMBER_HEIGHT = 30;
 
 export interface IGridProps {
   start: [number, number][];
@@ -83,7 +83,7 @@ export default function Grid({
     <>
       {
         grid.map((column, i) => <View style={{
-          flex: grid.length
+          flex: grid.length - 1
         }} key={i}>{renderColumn(column)}</View>)
       }
     </>

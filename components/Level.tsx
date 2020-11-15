@@ -8,7 +8,7 @@ export default function Level({
   end,
   blocks
 }: IGridProps) {
-  const { isPlayerAtStart, setPlayerOrientation, playerPosition, playerOrientation } = useMovements(start, end, blocks || []);
+  const { setPlayerOrientation, playerPosition, playerOrientation } = useMovements(start, end, blocks || []);
   return (
     <>
       <View style={styles.gestureContainer}>
@@ -16,10 +16,10 @@ export default function Level({
           <View style={[styles.gesture, styles.gestureVerticale]}></View>
         </TouchableOpacity>
         <View style={styles.gestureSubContainerHorizontal}>
-          <TouchableOpacity onLongPress={() => !isPlayerAtStart && setPlayerOrientation('left')}>
+          <TouchableOpacity onLongPress={() => setPlayerOrientation('left')}>
             <View style={[styles.gesture, styles.gestureHorizontale]}></View>
           </TouchableOpacity>
-          <TouchableOpacity onLongPress={() => !isPlayerAtStart && setPlayerOrientation('right')}>
+          <TouchableOpacity onLongPress={() => setPlayerOrientation('right')}>
             <View style={[styles.gesture, styles.gestureHorizontale]}></View>
           </TouchableOpacity>
         </View>
