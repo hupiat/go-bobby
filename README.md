@@ -1,2 +1,2 @@
 # go-bobby
-Go Bobby ! is a mobile game developed with React Native
+Go Bobby ! is a head breaker mobile game developed with React Native

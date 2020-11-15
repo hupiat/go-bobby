@@ -1,20 +1,14 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { View, StyleSheet, TouchableOpacity, Button, Dimensions } from "react-native";
 import Grid, { IGridProps } from "./Grid";
-import { Orientation } from "./Player";
+import useMovements from "./hooks/useMovements";
 
 export default function Level({
   start,
   end,
   blocks
 }: IGridProps) {
-  const [playerOrientation, setPlayerOrientation] = useState<Orientation>('top');
-  const [playerPosition, setPlayerPosition] = useState<[number, number]>(start[1] || start[0]);
-  const isPlayerAtStart = useMemo(() => start.some(s =>
-    s[0] === playerPosition[0] && s[1] === playerPosition[1]), [start, playerPosition]);
-
-  console.log(playerOrientation);
-
+  const { isPlayerAtStart, setPlayerOrientation, playerPosition, playerOrientation } = useMovements(start, end, blocks || []);
   return (
     <>
       <View style={styles.gestureContainer}>
@@ -33,7 +27,7 @@ export default function Level({
           <View style={[styles.gesture, styles.gestureVerticale]}></View>
         </TouchableOpacity>
       </View>
-      <Grid start={start} end={end} player={playerPosition} playerOrientation={playerOrientation} blocks={blocks} />
+      <Grid start={start} end={end} playerPosition={playerPosition} playerOrientation={playerOrientation} blocks={blocks} />
     </>
   )
 }
