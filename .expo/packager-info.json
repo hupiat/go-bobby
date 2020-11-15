@@ -2,9 +2,9 @@
   "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://52-83f.anonymous.go-bobby.exp.direct",
   "packagerNgrokUrl": "https://packager.52-83f.anonymous.go-bobby.exp.direct",
-  "ngrokPid": 23559,
+  "ngrokPid": 26447,
   "packagerPort": 19004,
-  "packagerPid": 23533,
+  "packagerPid": 26429,
   "webpackServerPort": null,
   "devToolsPort": 19002
 }
