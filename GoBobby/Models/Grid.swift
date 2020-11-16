@@ -21,7 +21,7 @@ struct Grid {
     
     var cases: [[Case]]
     
-    init(playerX: Int, playerY: Int, maxWidth: Int, maxHeight: Int) {
+    init(player: Player, maxWidth: Int, maxHeight: Int) {
         MAX_WIDTH = maxWidth
         MAX_HEIGHT = maxHeight
         cases = Array(repeating: Array(repeating: Case.empty, count: maxHeight), count: maxWidth)
@@ -29,7 +29,7 @@ struct Grid {
         // Initializing sides bricks
         for i in 0...MAX_WIDTH - 1 {
             for j in 0...MAX_HEIGHT - 1 {
-                if i == playerX && j == playerY {
+                if i == player.X && j == player.Y {
                     cases[i][j] = Case.player
                 } else if i == 0 || i == MAX_WIDTH - 1 || j == 0 || j == MAX_HEIGHT - 1 {
                     cases[i][j] = Case.brick
@@ -48,11 +48,11 @@ struct Grid {
         }
     }
     
-    mutating func movePlayer(playerX: Int, playerY: Int) -> Bool {
-        if cases[playerX][playerY] == Case.brick {
+    mutating func movePlayer(player: Player) -> Bool {
+        if cases[player.X][player.Y] == Case.brick {
             return false
         } else {
-            cases[playerX][playerY] = Case.player;
+            cases[player.X][player.Y] = Case.player;
             // Removing old position
             for i in 0...MAX_WIDTH - 1 {
                 for j in 0...MAX_HEIGHT - 1 {
