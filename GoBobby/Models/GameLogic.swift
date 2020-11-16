@@ -37,8 +37,5 @@ public struct GameLogic {
             }
         }
         GameScene.movePlayer(scene: scene, player: player, diffX: diffX, diffY: diffY)
-        if (grid.hasWon(player: player)) {
-            NSLog("Won !")
-        }
     }
 }

@@ -21,6 +21,7 @@ class GameViewController: UIViewController {
             // Load the SKScene from 'GameScene.sks'
             if let scene = SKScene(fileNamed: "GameScene") {
                 self.scene = scene
+                GameScene.view = view
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 
@@ -30,6 +31,7 @@ class GameViewController: UIViewController {
                 
                 // Loading nodes
                 GameScene.loadScene(scene: scene)
+                GameScene.loadLevelText()
             }
             
             view.ignoresSiblingOrder = true
@@ -58,15 +60,16 @@ class GameViewController: UIViewController {
     }
     
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) throws -> Void {
+        var level: LevelProtocol = GameScene.level[GameScene.levelNumber]
         switch (gesture.direction) {
             case .up:
-                gameLogic?.movePlayer(grid: &GameScene.level.grid, player: GameScene.level.player, orientation: Orientation.up)
+                gameLogic?.movePlayer(grid: &level.grid, player: level.player, orientation: Orientation.up)
             case .right:
-                gameLogic?.movePlayer(grid: &GameScene.level.grid, player: GameScene.level.player, orientation: Orientation.right)
+                gameLogic?.movePlayer(grid: &level.grid, player: level.player, orientation: Orientation.right)
             case .left:
-                gameLogic?.movePlayer(grid: &GameScene.level.grid, player: GameScene.level.player, orientation: Orientation.left)
+                gameLogic?.movePlayer(grid: &level.grid, player: level.player, orientation: Orientation.left)
             case .down:
-                gameLogic?.movePlayer(grid: &GameScene.level.grid, player: GameScene.level.player, orientation: Orientation.down)
+                gameLogic?.movePlayer(grid: &level.grid, player: level.player, orientation: Orientation.down)
             default:
                 throw Errors.Unhandled
         }
