@@ -25,20 +25,30 @@ class GameScene: SKScene {
                 wall.position.y = CGFloat(j) * CGFloat(Grid.CASE_PX)
                 scene.addChild(wall)
             } else if level.grid.cases[i][j] == Case.player {
-                loadPlayer(scene: scene, player: level.player, firstLoad: true)
+                loadPlayer(scene: scene, player: level.player)
             }
         })
     }
     
-    static func loadPlayer(scene: SKScene, player: Player, firstLoad: Bool = false) {
-        if (!firstLoad) {
-            let oldNode: SKSpriteNode = scene.childNode(withName: "player") as! SKSpriteNode
-            scene.removeChildren(in: [oldNode])
-        }
+    static func loadPlayer(scene: SKScene, player: Player) {
         let playerNode = SKSpriteNode(texture: SKTexture(imageNamed: "player_\(player.orientation).png"))
         playerNode.name = "player"
         playerNode.position.x = CGFloat(player.X) * CGFloat(Grid.CASE_PX)
         playerNode.position.y = CGFloat(player.Y) * CGFloat(Grid.CASE_PX)
         scene.addChild(playerNode)
+    }
+    
+    static func movePlayer(scene: SKScene, player: Player, diffX: Int, diffY: Int) {
+        let animAcceleration: Double = 0.05
+        let playerNode: SKSpriteNode = scene.childNode(withName: "player") as! SKSpriteNode
+        playerNode.texture = SKTexture(imageNamed: "player_\(player.orientation).png")
+        if (diffX != 0) {
+            let moveX: SKAction = SKAction.moveTo(x: CGFloat(player.X) * CGFloat(Grid.CASE_PX), duration: Double(diffX) * animAcceleration)
+            playerNode.run(moveX)
+        }
+        if (diffY != 0) {
+            let moveY: SKAction = SKAction.moveTo(y: CGFloat(player.Y) * CGFloat(Grid.CASE_PX), duration: Double(diffY) * animAcceleration)
+            playerNode.run(moveY)
+        }
     }
 }

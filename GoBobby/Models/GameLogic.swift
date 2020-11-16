@@ -17,19 +17,25 @@ public struct GameLogic {
     }
     
     func movePlayer(grid: inout Grid, player: Player, orientation: Orientation) {
+        var diffX: Int = 0
+        var diffY: Int = 0
         player.orientation = orientation
         while grid.movePlayer(player: player, orientation: orientation) {
             switch (orientation) {
                 case .up:
                     player.Y += 1
+                    diffY += 1
                 case .right:
                     player.X += 1
+                    diffX += 1
                 case .left:
                     player.X -= 1
+                    diffX += 1
                 case .down:
                     player.Y -= 1
+                    diffY += 1
             }
         }
-        GameScene.loadPlayer(scene: scene, player: player)
+        GameScene.movePlayer(scene: scene, player: player, diffX: diffX, diffY: diffY)
     }
 }
