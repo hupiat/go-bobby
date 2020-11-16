@@ -8,14 +8,16 @@
 import SpriteKit
 import GameplayKit
 
+// TODO : work with CGPoint
+
 class GameScene: SKScene {
     let PX_STANDARD: CGFloat = 24
     var grid: Grid
     
     required init?(coder aDecoder: NSCoder) {
         let screenSize = UIScreen.main.nativeBounds
-        let maxWidth = Int(ceil(screenSize.width / PX_STANDARD * 1.05))
-        let maxHeight = Int(ceil(screenSize.height / PX_STANDARD * 1.11))
+        let maxWidth = Int(ceil(screenSize.width / PX_STANDARD))
+        let maxHeight = Int(ceil(screenSize.height / PX_STANDARD))
         grid = Grid(playerX: 10, playerY: 10, maxWidth: maxWidth, maxHeight: maxHeight)
         
         super.init(coder: aDecoder)
