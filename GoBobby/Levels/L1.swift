@@ -13,10 +13,10 @@ struct L1 : LevelProtocol {
     let end: Block
     let player: Player
     
-    init(maxWidth: Int, maxHeight: Int) {
+    init() {
         player = Player(X: 10, Y: 10, orientation: Orientation.up)
         blocks = [Block(X: 10, Y: 15)]
-        end = Block(X: 27, Y: maxHeight - 1)
-        grid = Grid(player: player, maxWidth: maxWidth, maxHeight: maxHeight, blocks: blocks, end: end)
+        end = Block(X: 27, Y: GameScene.MAX_HEIGHT - 1)
+        grid = Grid(player: player, blocks: blocks, end: end)
     }
 }

@@ -9,30 +9,27 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    let SCALE_MULTIPLICATOR: CGFloat = 2.2
+    // Multiplicator is needed instead of screen scale
+    static let SCALE_MULTIPLICATOR: CGFloat = 2.2
+    static let SCREEN_SIZE: CGRect = UIScreen.main.bounds
+    static let MAX_WIDTH: Int = Int(floor(SCREEN_SIZE.width * SCALE_MULTIPLICATOR / CGFloat(Grid.CASE_PX)))
+    static let MAX_HEIGHT: Int = Int(floor(SCREEN_SIZE.height * SCALE_MULTIPLICATOR / CGFloat(Grid.CASE_PX)))
+    static var level: LevelProtocol = L1()
     
-    required init?(coder aDecoder: NSCoder) {
-        let screenSize = UIScreen.main.bounds
-        // Multiplicator is needed instead of screen scale
-        let maxWidth = Int(floor(screenSize.width * SCALE_MULTIPLICATOR / CGFloat(Grid.CASE_PX)))
-        let maxHeight = Int(floor(screenSize.height * SCALE_MULTIPLICATOR / CGFloat(Grid.CASE_PX)))
-        let level: L1 = L1(maxWidth: maxWidth, maxHeight: maxHeight)
-        
-        super.init(coder: aDecoder)
-        
+    static func loadScene(scene: SKScene) {
         level.grid.iterate(callback: { i, j in
             if level.grid.cases[i][j] == Case.brick {
                 let wall = SKSpriteNode(texture: SKTexture(imageNamed: "brick_wall.png"))
                 wall.name = "wall \(i) \(j)"
                 wall.position.x = CGFloat(i) * CGFloat(Grid.CASE_PX)
                 wall.position.y = CGFloat(j) * CGFloat(Grid.CASE_PX)
-                self.addChild(wall)
+                scene.addChild(wall)
             } else if level.grid.cases[i][j] == Case.player {
                 let playerNode = SKSpriteNode(texture: SKTexture(imageNamed: "player_\(level.player.orientation).png"))
                 playerNode.name = "player"
                 playerNode.position.x = CGFloat(level.player.X) * CGFloat(Grid.CASE_PX)
                 playerNode.position.y = CGFloat(level.player.Y) * CGFloat(Grid.CASE_PX)
-                self.addChild(playerNode)
+                scene.addChild(playerNode)
             }
         })
     }

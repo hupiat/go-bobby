@@ -11,7 +11,7 @@ import GameplayKit
 
 class GameViewController: UIViewController {
     
-    @IBOutlet weak var player : SKSpriteNode?
+    var player : SKSpriteNode?
     
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
         if gesture.direction == .right {
@@ -39,6 +39,12 @@ class GameViewController: UIViewController {
                 
                 // Present the scene
                 view.presentScene(scene)
+                
+                // Loading nodes
+                GameScene.loadScene(scene: scene)
+                
+                // Getting nodes
+                player = scene.childNode(withName: "player") as? SKSpriteNode
             }
             
             view.ignoresSiblingOrder = true
