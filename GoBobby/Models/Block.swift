@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Block {
+class Block {
     let X: Int
     let Y: Int
     

@@ -14,7 +14,7 @@ enum Orientation {
     case down
 }
 
-struct Player {
+class Player {
     var X: Int
     var Y: Int
     var orientation: Orientation

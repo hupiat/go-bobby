@@ -21,6 +21,8 @@
 		9AD107F025628E1F00A3CEA6 /* L1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD107EF25628E1F00A3CEA6 /* L1.swift */; };
 		9AD107F525628E6000A3CEA6 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD107F425628E6000A3CEA6 /* Block.swift */; };
 		9AD10802256292F000A3CEA6 /* LevelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD10801256292F000A3CEA6 /* LevelProtocol.swift */; };
+		9AD1080A2562EC9500A3CEA6 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD108092562EC9500A3CEA6 /* Errors.swift */; };
+		9AD1080F2562EFD500A3CEA6 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1080E2562EFD500A3CEA6 /* GameLogic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		9AD107EF25628E1F00A3CEA6 /* L1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1.swift; sourceTree = "<group>"; };
 		9AD107F425628E6000A3CEA6 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		9AD10801256292F000A3CEA6 /* LevelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProtocol.swift; sourceTree = "<group>"; };
+		9AD108092562EC9500A3CEA6 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		9AD1080E2562EFD500A3CEA6 /* GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,8 @@
 				9AD107C52561E15500A3CEA6 /* Grid.swift */,
 				9AD107E12562890300A3CEA6 /* Player.swift */,
 				9AD107F425628E6000A3CEA6 /* Block.swift */,
+				9AD108092562EC9500A3CEA6 /* Errors.swift */,
+				9AD1080E2562EFD500A3CEA6 /* GameLogic.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -300,6 +306,8 @@
 				9AD107F025628E1F00A3CEA6 /* L1.swift in Sources */,
 				9AD1078C2561A6A500A3CEA6 /* AppDelegate.swift in Sources */,
 				9AD107E22562890300A3CEA6 /* Player.swift in Sources */,
+				9AD1080A2562EC9500A3CEA6 /* Errors.swift in Sources */,
+				9AD1080F2562EFD500A3CEA6 /* GameLogic.swift in Sources */,
 				9AD107C62561E15500A3CEA6 /* Grid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,10 +8,10 @@
 import Foundation
 
 struct L1 : LevelProtocol {
-    let grid: Grid
+    var grid: Grid
+    var player: Player
     let blocks: [Block]
     let end: Block
-    let player: Player
     
     init() {
         player = Player(X: 10, Y: 10, orientation: Orientation.up)

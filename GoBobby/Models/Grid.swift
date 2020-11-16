@@ -75,21 +75,35 @@ struct Grid {
         return hasBlock
     }
     
-    mutating func movePlayer(player: Player) -> Bool {
-        if cases[player.X][player.Y] == Case.brick {
-            return false
-        } else {
-            cases[player.X][player.Y] = Case.player;
-            // Removing old position
-            for i in 0...GameScene.MAX_WIDTH - 1 {
-                for j in 0...GameScene.MAX_HEIGHT - 1 {
-                    if cases[i][j] == Case.player {
-                        cases[i][j] = Case.empty
-                        break
-                    }
+    mutating func movePlayer(player: Player, orientation: Orientation) -> Bool {
+        switch (orientation) {
+            case .up:
+                if cases[player.X][player.Y + 1] == Case.brick {
+                    return false
+                }
+            case .right:
+                if cases[player.X + 1][player.Y] == Case.brick {
+                    return false
+                }
+            case .left:
+                if cases[player.X - 1][player.Y] == Case.brick {
+                    return false
+                }
+            case .down:
+                if cases[player.X][player.Y - 1] == Case.brick {
+                    return false
+                }
+        }
+        cases[player.X][player.Y] = Case.player;
+        // Removing old position
+        for i in 0...GameScene.MAX_WIDTH - 1 {
+            for j in 0...GameScene.MAX_HEIGHT - 1 {
+                if cases[i][j] == Case.player {
+                    cases[i][j] = Case.empty
+                    break
                 }
             }
-            return true
         }
+        return true
     }
 }
