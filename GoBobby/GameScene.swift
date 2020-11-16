@@ -9,8 +9,6 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    var grid: Grid
-    var player: Player
     let SCALE_MULTIPLICATOR: CGFloat = 2.2
     
     required init?(coder aDecoder: NSCoder) {
@@ -18,24 +16,22 @@ class GameScene: SKScene {
         // Multiplicator is needed instead of screen scale
         let maxWidth = Int(floor(screenSize.width * SCALE_MULTIPLICATOR / CGFloat(Grid.CASE_PX)))
         let maxHeight = Int(floor(screenSize.height * SCALE_MULTIPLICATOR / CGFloat(Grid.CASE_PX)))
-        player = Player(X: 10, Y: 10, orientation: Orientation.up)
-        grid = Grid(player: player, maxWidth: maxWidth, maxHeight: maxHeight)
+        let level: L1 = L1(maxWidth: maxWidth, maxHeight: maxHeight)
         
         super.init(coder: aDecoder)
         
-        grid.iterate(callback: { i, j in
-            if grid.cases[i][j] == Case.brick {
+        level.grid.iterate(callback: { i, j in
+            if level.grid.cases[i][j] == Case.brick {
                 let wall = SKSpriteNode(texture: SKTexture(imageNamed: "brick_wall.png"))
                 wall.name = "wall \(i) \(j)"
                 wall.position.x = CGFloat(i) * CGFloat(Grid.CASE_PX)
                 wall.position.y = CGFloat(j) * CGFloat(Grid.CASE_PX)
                 self.addChild(wall)
-            } else if grid.cases[i][j] == Case.player {
-                // TODO : replace orientation with player one
-                let playerNode = SKSpriteNode(texture: SKTexture(imageNamed: "player_\(Orientation.up).png"))
+            } else if level.grid.cases[i][j] == Case.player {
+                let playerNode = SKSpriteNode(texture: SKTexture(imageNamed: "player_\(level.player.orientation).png"))
                 playerNode.name = "player"
-                playerNode.position.x = CGFloat(player.X) * CGFloat(Grid.CASE_PX)
-                playerNode.position.y = CGFloat(player.Y) * CGFloat(Grid.CASE_PX)
+                playerNode.position.x = CGFloat(level.player.X) * CGFloat(Grid.CASE_PX)
+                playerNode.position.y = CGFloat(level.player.Y) * CGFloat(Grid.CASE_PX)
                 self.addChild(playerNode)
             }
         })

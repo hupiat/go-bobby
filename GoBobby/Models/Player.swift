@@ -24,4 +24,8 @@ struct Player {
         self.Y = Y
         self.orientation = orientation
     }
+    
+    func isAtPos(i: Int, j: Int) -> Bool {
+        return X == i && Y == j
+    }
 }

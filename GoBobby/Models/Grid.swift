@@ -21,20 +21,35 @@ struct Grid {
     
     var cases: [[Case]]
     
-    init(player: Player, maxWidth: Int, maxHeight: Int) {
+    init(player: Player, maxWidth: Int, maxHeight: Int, blocks: [Block], end: Block) {
         MAX_WIDTH = maxWidth
         MAX_HEIGHT = maxHeight
         cases = Array(repeating: Array(repeating: Case.empty, count: maxHeight), count: maxWidth)
         
-        // Initializing sides bricks
         for i in 0...MAX_WIDTH - 1 {
             for j in 0...MAX_HEIGHT - 1 {
-                if i == player.X && j == player.Y {
+                if end.isAtPos(i: i, j: j) {
+                    // Setting up end pos
+                    cases[i][j] = Case.empty
+                } else if player.isAtPos(i: i, j: j) {
+                    // Initializing player
                     cases[i][j] = Case.player
                 } else if i == 0 || i == MAX_WIDTH - 1 || j == 0 || j == MAX_HEIGHT - 1 {
+                    // Initializing sides bricks
                     cases[i][j] = Case.brick
                 } else {
-                    cases[i][j] = Case.empty
+                    // Initializing other bricks
+                    var hasBlock: Bool = false
+                    for block in blocks {
+                        if block.isAtPos(i: i, j: j) {
+                            cases[i][j] = Case.brick
+                            hasBlock = true
+                            break
+                        }
+                    }
+                    if (!hasBlock) {
+                        cases[i][j] = Case.empty
+                    }
                 }
             }
         }
