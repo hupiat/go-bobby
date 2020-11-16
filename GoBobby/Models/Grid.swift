@@ -11,6 +11,7 @@ public enum Case: Int {
     case empty
     case brick
     case player
+    case end
 }
 
 public struct Grid {
@@ -28,7 +29,7 @@ public struct Grid {
             for j in 0...GameScene.MAX_HEIGHT - 1 {
                 if end.isAtPos(i: i, j: j) {
                     // Setting up end pos
-                    cases[i][j] = Case.empty
+                    cases[i][j] = Case.end
                 } else if player.isAtPos(i: i, j: j) {
                     // Initializing player
                     cases[i][j] = Case.player
@@ -75,7 +76,14 @@ public struct Grid {
         return hasBlock
     }
     
+    func hasWon(player: Player) -> Bool {
+        return cases[player.X][player.Y] == Case.end
+    }
+    
     mutating func movePlayer(player: Player, orientation: Orientation) -> Bool {
+        if (hasWon(player: player)) {
+            return false
+        }
         switch (orientation) {
             case .up:
                 if cases[player.X][player.Y + 1] == Case.brick {
