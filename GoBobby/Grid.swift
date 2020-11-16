@@ -14,37 +14,48 @@ enum Case: Int {
 }
 
 struct Grid {
-    let MAX_WIDTH = 20
-    let MAX_HEIGHT = 30
+    let MAX_WIDTH: Int
+    let MAX_HEIGHT: Int
     
-    var grid: [[Case]] = []
+    var cases: [[Case]]
     
-    init(playerX: Int, playerY: Int) {
+    init(playerX: Int, playerY: Int, maxWidth: Int, maxHeight: Int) {
+        MAX_WIDTH = maxWidth
+        MAX_HEIGHT = maxHeight
+        cases = Array(repeating: Array(repeating: Case.empty, count: maxHeight), count: maxWidth)
+        
         // Initializing sides bricks
-        for i in 0...MAX_WIDTH {
-            grid[i] = []
-            for j in 0...MAX_HEIGHT {
+        for i in 0...MAX_WIDTH - 1 {
+            for j in 0...MAX_HEIGHT - 1 {
                 if i == playerX && j == playerY {
-                    grid[i][j] = Case.player
+                    cases[i][j] = Case.player
                 } else if i == 0 || i == MAX_WIDTH - 1 || j == 0 || j == MAX_HEIGHT - 1 {
-                    grid[i][j] = Case.brick
+                    cases[i][j] = Case.brick
                 } else {
-                    grid[i][j] = Case.empty
+                    cases[i][j] = Case.empty
                 }
             }
         }
     }
     
+    func iterate(callback: (Int, Int) -> ()) -> Void {
+        for i in 0...MAX_WIDTH - 1 {
+            for j in 0...MAX_HEIGHT - 1 {
+                callback(i, j)
+            }
+        }
+    }
+    
     mutating func movePlayer(playerX: Int, playerY: Int) -> Bool {
-        if grid[playerX][playerY] == Case.brick {
+        if cases[playerX][playerY] == Case.brick {
             return false
         } else {
-            grid[playerX][playerY] = Case.player;
+            cases[playerX][playerY] = Case.player;
             // Removing old position
-            for i in 0...MAX_WIDTH {
-                for j in 0...MAX_HEIGHT {
-                    if grid[i][j] == Case.player {
-                        grid[i][j] = Case.empty
+            for i in 0...MAX_WIDTH - 1 {
+                for j in 0...MAX_HEIGHT - 1 {
+                    if cases[i][j] == Case.player {
+                        cases[i][j] = Case.empty
                         break
                     }
                 }

@@ -9,22 +9,25 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    let grid = Grid(playerX: 10, playerY: 10)
+    let PX_STANDARD: CGFloat = 24
+    var grid: Grid
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        let wall = SKSpriteNode(texture: SKTexture(imageNamed: "brick_wall.png"))
-        wall.name = "wall"
-        wall.position.x = 10
-        wall.position.y = 10
-        wall.zPosition = 1
-        self.addChild(wall)
+        let screenSize = UIScreen.main.nativeBounds
+        let maxWidth = Int(ceil(screenSize.width / PX_STANDARD * 1.05))
+        let maxHeight = Int(ceil(screenSize.height / PX_STANDARD * 1.11))
+        grid = Grid(playerX: 10, playerY: 10, maxWidth: maxWidth, maxHeight: maxHeight)
         
-        let wall2 = SKSpriteNode(texture: SKTexture(imageNamed: "brick_wall.png"))
-        wall.name = "wall2"
-        wall.position.x = 20
-        wall.position.y = 20
-        wall.zPosition = 1
-        self.addChild(wall2)
+        super.init(coder: aDecoder)
+        
+        grid.iterate(callback: { i, j in
+            if grid.cases[i][j] == Case.brick {
+                let wall = SKSpriteNode(texture: SKTexture(imageNamed: "brick_wall.png"))
+                wall.name = "wall \(i) \(j)"
+                wall.position.x = CGFloat(i) * PX_STANDARD
+                wall.position.y = CGFloat(j) * PX_STANDARD
+                self.addChild(wall)
+            }
+        })
     }
 }
