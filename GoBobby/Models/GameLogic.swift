@@ -8,24 +8,28 @@
 import Foundation
 import SpriteKit
 
-struct GameLogic {
+public struct GameLogic {
     
-    static func movePlayer(grid: inout Grid, player: Player, orientation: Orientation, node: SKSpriteNode) {
-        repeat {
-            switch(orientation) {
+    var scene: SKScene
+    
+    init(scene: SKScene) {
+        self.scene = scene
+    }
+    
+    func movePlayer(grid: inout Grid, player: Player, orientation: Orientation) {
+        player.orientation = orientation
+        while grid.movePlayer(player: player, orientation: orientation) {
+            switch (orientation) {
                 case .up:
                     player.Y += 1
-                    node.position.y += CGFloat(Grid.CASE_PX)
                 case .right:
                     player.X += 1
-                    node.position.x += CGFloat(Grid.CASE_PX)
                 case .left:
                     player.X -= 1
-                    node.position.x -= CGFloat(Grid.CASE_PX)
                 case .down:
                     player.Y -= 1
-                    node.position.y -= CGFloat(Grid.CASE_PX)
             }
-        } while grid.movePlayer(player: player, orientation: orientation)
+        }
+        GameScene.loadPlayer(scene: scene, player: player)
     }
 }

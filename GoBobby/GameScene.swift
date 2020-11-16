@@ -25,14 +25,20 @@ class GameScene: SKScene {
                 wall.position.y = CGFloat(j) * CGFloat(Grid.CASE_PX)
                 scene.addChild(wall)
             } else if level.grid.cases[i][j] == Case.player {
-                let playerNode = SKSpriteNode(texture: SKTexture(imageNamed: "player_\(level.player.orientation).png"))
-                playerNode.name = "player"
-                playerNode.position.x = CGFloat(level.player.X) * CGFloat(Grid.CASE_PX)
-                playerNode.position.y = CGFloat(level.player.Y) * CGFloat(Grid.CASE_PX)
-                scene.addChild(playerNode)
+                loadPlayer(scene: scene, player: level.player, firstLoad: true)
             }
         })
     }
     
-    
+    static func loadPlayer(scene: SKScene, player: Player, firstLoad: Bool = false) {
+        if (!firstLoad) {
+            let oldNode: SKSpriteNode = scene.childNode(withName: "player") as! SKSpriteNode
+            scene.removeChildren(in: [oldNode])
+        }
+        let playerNode = SKSpriteNode(texture: SKTexture(imageNamed: "player_\(player.orientation).png"))
+        playerNode.name = "player"
+        playerNode.position.x = CGFloat(player.X) * CGFloat(Grid.CASE_PX)
+        playerNode.position.y = CGFloat(player.Y) * CGFloat(Grid.CASE_PX)
+        scene.addChild(playerNode)
+    }
 }

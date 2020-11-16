@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Block {
+public class Block {
     let X: Int
     let Y: Int
     

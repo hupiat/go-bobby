@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum Case: Int {
+public enum Case: Int {
     case empty
     case brick
     case player
 }
 
-struct Grid {
+public struct Grid {
     static let CASE_PX: Int = 24
     
     var cases: [[Case]]

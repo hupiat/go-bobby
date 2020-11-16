@@ -11,7 +11,8 @@ import GameplayKit
 
 class GameViewController: UIViewController {
     
-    var player : SKSpriteNode?
+    var scene: SKScene?
+    var gameLogic: GameLogic?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,17 +20,16 @@ class GameViewController: UIViewController {
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
             if let scene = SKScene(fileNamed: "GameScene") {
+                self.scene = scene
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 
                 // Present the scene
                 view.presentScene(scene)
+                gameLogic = GameLogic(scene: scene)
                 
                 // Loading nodes
                 GameScene.loadScene(scene: scene)
-                
-                // Getting nodes
-                player = scene.childNode(withName: "player") as? SKSpriteNode
             }
             
             view.ignoresSiblingOrder = true
@@ -60,13 +60,13 @@ class GameViewController: UIViewController {
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) throws -> Void {
         switch (gesture.direction) {
             case .up:
-                GameLogic.movePlayer(grid: &GameScene.level.grid, player: GameScene.level.player, orientation: Orientation.up, node: player!)
+                gameLogic?.movePlayer(grid: &GameScene.level.grid, player: GameScene.level.player, orientation: Orientation.up)
             case .right:
-                GameLogic.movePlayer(grid: &GameScene.level.grid, player: GameScene.level.player, orientation: Orientation.right, node: player!)
+                gameLogic?.movePlayer(grid: &GameScene.level.grid, player: GameScene.level.player, orientation: Orientation.right)
             case .left:
-                GameLogic.movePlayer(grid: &GameScene.level.grid, player: GameScene.level.player, orientation: Orientation.left, node: player!)
+                gameLogic?.movePlayer(grid: &GameScene.level.grid, player: GameScene.level.player, orientation: Orientation.left)
             case .down:
-                GameLogic.movePlayer(grid: &GameScene.level.grid, player: GameScene.level.player, orientation: Orientation.down, node: player!)
+                gameLogic?.movePlayer(grid: &GameScene.level.grid, player: GameScene.level.player, orientation: Orientation.down)
             default:
                 throw Errors.Unhandled
         }

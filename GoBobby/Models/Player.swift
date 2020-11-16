@@ -7,14 +7,14 @@
 
 import Foundation
 
-enum Orientation {
+public enum Orientation {
     case up
     case left
     case right
     case down
 }
 
-class Player {
+public class Player {
     var X: Int
     var Y: Int
     var orientation: Orientation
