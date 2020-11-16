@@ -14,6 +14,8 @@ enum Case: Int {
 }
 
 struct Grid {
+    static let CASE_PX: Int = 24
+    
     let MAX_WIDTH: Int
     let MAX_HEIGHT: Int
     
