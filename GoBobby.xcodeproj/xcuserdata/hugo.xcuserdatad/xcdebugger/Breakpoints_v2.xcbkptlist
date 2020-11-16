@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E0641A5F-5205-40B6-96C0-42C04495968C"
-            shouldBeEnabled = "No"
+            uuid = "B123F8F8-90BF-49EE-A9A4-1DF7B9780338"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GoBobby/GameScene.swift"
+            filePath = "GoBobby/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "init(coder:)"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "handleGesture(gesture:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -10,6 +10,23 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
+    
+    @IBOutlet weak var player : SKSpriteNode?
+    
+    @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+        if gesture.direction == .right {
+            NSLog("Swipe Right")
+        }
+        else if gesture.direction == .left {
+            NSLog("Swipe Left")
+        }
+        else if gesture.direction == .up {
+            NSLog("Swipe up")
+        }
+        else if gesture.direction == .down {
+            NSLog("Swipe Down")
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +43,24 @@ class GameViewController: UIViewController {
             
             view.ignoresSiblingOrder = true
             
+            // Adding swipe recognizer
+            let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+            swipeLeft.direction = .left
+            self.view.addGestureRecognizer(swipeLeft)
+
+            let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+            swipeRight.direction = .right
+            self.view.addGestureRecognizer(swipeRight)
+
+            let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+            swipeUp.direction = .up
+            self.view.addGestureRecognizer(swipeUp)
+
+            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+            swipeDown.direction = .down
+            self.view.addGestureRecognizer(swipeDown)
+            
+            // Development options
             view.showsFPS = true
             view.showsNodeCount = true
         }
