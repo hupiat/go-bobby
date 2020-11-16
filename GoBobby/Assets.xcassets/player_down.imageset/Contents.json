@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "player_bottom.png",
+      "filename" : "player_down.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

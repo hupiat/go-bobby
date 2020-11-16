@@ -14,7 +14,7 @@ public enum Case: Int {
 }
 
 public struct Grid {
-    static let CASE_PX: Int = 24
+    static let CASE_PX: Int = 48
     
     var cases: [[Case]]
     var blocks: [Block]
