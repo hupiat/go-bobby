@@ -28,6 +28,7 @@
 		9AD108252564183F00A3CEA6 /* background_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9AD108242564183F00A3CEA6 /* background_music.mp3 */; };
 		9AD1082A25641BE900A3CEA6 /* L4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1082925641BE900A3CEA6 /* L4.swift */; };
 		9AD1082F25641F1300A3CEA6 /* L5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1082E25641F1300A3CEA6 /* L5.swift */; };
+		9AD1083425641FE500A3CEA6 /* L6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1083325641FE500A3CEA6 /* L6.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		9AD108242564183F00A3CEA6 /* background_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_music.mp3; sourceTree = "<group>"; };
 		9AD1082925641BE900A3CEA6 /* L4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L4.swift; sourceTree = "<group>"; };
 		9AD1082E25641F1300A3CEA6 /* L5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L5.swift; sourceTree = "<group>"; };
+		9AD1083325641FE500A3CEA6 /* L6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L6.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +181,7 @@
 				9AD1081825640FCF00A3CEA6 /* L3.swift */,
 				9AD1082925641BE900A3CEA6 /* L4.swift */,
 				9AD1082E25641F1300A3CEA6 /* L5.swift */,
+				9AD1083325641FE500A3CEA6 /* L6.swift */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				9AD107F525628E6000A3CEA6 /* Block.swift in Sources */,
 				9AD107942561A6A500A3CEA6 /* GameViewController.swift in Sources */,
 				9AD1082A25641BE900A3CEA6 /* L4.swift in Sources */,
+				9AD1083425641FE500A3CEA6 /* L6.swift in Sources */,
 				9AD107F025628E1F00A3CEA6 /* L1.swift in Sources */,
 				9AD1078C2561A6A500A3CEA6 /* AppDelegate.swift in Sources */,
 				9AD107E22562890300A3CEA6 /* Player.swift in Sources */,
