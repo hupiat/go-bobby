@@ -39,7 +39,11 @@ public struct GameLogic {
         }
         let switchLevel: () -> Void = {
             if (GameScene.LEVELS[GameScene.LEVEL_NUMBER].grid.hasWon(player: player)) {
-                GameScene.LEVEL_NUMBER += 1
+                if (GameScene.LEVEL_NUMBER < GameScene.LEVELS.count - 1) {
+                    GameScene.LEVEL_NUMBER += 1
+                } else {
+                    GameScene.LEVEL_NUMBER = 0
+                }
                 scene.loadScene()
                 scene.loadLevelText()
             } else {

@@ -41,6 +41,8 @@
 		9AD108662564415F00A3CEA6 /* L16.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD108652564415F00A3CEA6 /* L16.swift */; };
 		9AD1086B2564430900A3CEA6 /* L17.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1086A2564430900A3CEA6 /* L17.swift */; };
 		9AD108702564448E00A3CEA6 /* L18.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1086F2564448E00A3CEA6 /* L18.swift */; };
+		9AD108752564477800A3CEA6 /* L19.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD108742564477800A3CEA6 /* L19.swift */; };
+		9AD1087A256447A100A3CEA6 /* L20.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD10879256447A100A3CEA6 /* L20.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +103,8 @@
 		9AD108652564415F00A3CEA6 /* L16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L16.swift; sourceTree = "<group>"; };
 		9AD1086A2564430900A3CEA6 /* L17.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L17.swift; sourceTree = "<group>"; };
 		9AD1086F2564448E00A3CEA6 /* L18.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L18.swift; sourceTree = "<group>"; };
+		9AD108742564477800A3CEA6 /* L19.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L19.swift; sourceTree = "<group>"; };
+		9AD10879256447A100A3CEA6 /* L20.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L20.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +222,8 @@
 				9AD108652564415F00A3CEA6 /* L16.swift */,
 				9AD1086A2564430900A3CEA6 /* L17.swift */,
 				9AD1086F2564448E00A3CEA6 /* L18.swift */,
+				9AD108742564477800A3CEA6 /* L19.swift */,
+				9AD10879256447A100A3CEA6 /* L20.swift */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -372,6 +378,7 @@
 				9AD107F525628E6000A3CEA6 /* Block.swift in Sources */,
 				9AD108392564222400A3CEA6 /* L7.swift in Sources */,
 				9AD108662564415F00A3CEA6 /* L16.swift in Sources */,
+				9AD108752564477800A3CEA6 /* L19.swift in Sources */,
 				9AD107942561A6A500A3CEA6 /* GameViewController.swift in Sources */,
 				9AD108522564361900A3CEA6 /* L12.swift in Sources */,
 				9AD1084825642C4400A3CEA6 /* L10.swift in Sources */,
@@ -383,6 +390,7 @@
 				9AD1084D25642D9300A3CEA6 /* L11.swift in Sources */,
 				9AD1078C2561A6A500A3CEA6 /* AppDelegate.swift in Sources */,
 				9AD107E22562890300A3CEA6 /* Player.swift in Sources */,
+				9AD1087A256447A100A3CEA6 /* L20.swift in Sources */,
 				9AD108572564377F00A3CEA6 /* L13.swift in Sources */,
 				9AD1080A2562EC9500A3CEA6 /* Errors.swift in Sources */,
 				9AD1080F2562EFD500A3CEA6 /* GameLogic.swift in Sources */,
