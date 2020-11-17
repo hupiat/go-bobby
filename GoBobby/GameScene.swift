@@ -15,54 +15,62 @@ class GameScene: SKScene {
     static let SCREEN_SIZE: CGRect = UIScreen.main.bounds
     static let MAX_WIDTH: Int = Int(floor(SCREEN_SIZE.width * SCALE_MULTIPLICATOR_WIDTH / CGFloat(Grid.CASE_PX)))
     static let MAX_HEIGHT: Int = Int(floor(SCREEN_SIZE.height * SCALE_MULTIPLICATOR_HEIGHT / CGFloat(Grid.CASE_PX)))
-    static var levelNumber = 0
-    static var level: [LevelProtocol] = [L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1()]
+    static var LEVEL_NUMBER = 0
+    static var LEVELS: [LevelProtocol] = [L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1()]
     
-    static let levelText: UITextView = UITextView(frame: CGRect(x: 5, y: 5, width: 40, height: 40))
-    static var view: SKView? = nil
+    let levelText: UITextView = UITextView(frame: CGRect(x: 5, y: 5, width: 40, height: 40))
+    let reloadButton: UIButton = UIButton(frame: CGRect(x: 275, y: 10, width: 30, height: 30))
     
-    static func loadScene(scene: SKScene) -> Void {
-        scene.removeAllChildren()
-        level[levelNumber].grid.iterate(callback: { i, j in
-            if level[levelNumber].grid.cases[i][j] == Case.brick {
+    @objc func loadScene() -> Void {
+        self.removeAllChildren()
+        let level: LevelProtocol = GameScene.LEVELS[GameScene.LEVEL_NUMBER]
+        level.grid.iterate(callback: { i, j in
+            if level.grid.cases[i][j] == Case.brick {
                 let wall = SKSpriteNode(texture: SKTexture(imageNamed: "brick_wall.png"))
                 wall.name = "wall \(i) \(j)"
                 wall.position.x = CGFloat(i) * CGFloat(Grid.CASE_PX)
                 wall.position.y = CGFloat(j) * CGFloat(Grid.CASE_PX)
-                scene.addChild(wall)
-            } else if level[levelNumber].grid.cases[i][j] == Case.player {
-                loadPlayer(scene: scene, player: level[levelNumber].player)
+                self.addChild(wall)
+            } else if level.grid.cases[i][j] == Case.player {
+                loadPlayer(player: level.player)
             }
         })
     }
     
-    static func loadPlayer(scene: SKScene, player: Player) -> Void {
+    func loadPlayer(player: Player) -> Void {
         let playerNode = SKSpriteNode(texture: SKTexture(imageNamed: "player_\(player.orientation).png"))
         playerNode.name = "player"
         playerNode.position.x = CGFloat(player.X) * CGFloat(Grid.CASE_PX)
         playerNode.position.y = CGFloat(player.Y) * CGFloat(Grid.CASE_PX)
-        scene.addChild(playerNode)
+        self.addChild(playerNode)
     }
     
-    static func loadLevelText() -> Void {
+    func loadLevelText() -> Void {
         levelText.textColor = UIColor.white
         levelText.backgroundColor = UIColor.blue
         levelText.textAlignment = .center
         levelText.layer.cornerRadius = 20
         levelText.usesStandardTextScaling = true
-        levelText.text = String(levelNumber + 1)
-        view!.addSubview(levelText)
+        levelText.text = String(GameScene.LEVEL_NUMBER + 1)
+        self.view?.addSubview(levelText)
     }
     
-    static func movePlayer(scene: SKScene, player: Player, diffX: Int, diffY: Int) -> Void {
+    func loadReloadButton() -> Void {
+        let reloadImage: UIImage = UIImage(named: "reload.png")!
+        reloadButton.setImage(reloadImage, for: .normal)
+        reloadButton.addTarget(self, action: #selector(self.loadScene), for: .touchUpInside)
+        self.view?.addSubview(reloadButton)
+    }
+    
+    func movePlayer(player: Player, diffX: Int, diffY: Int) -> Void {
         let animAcceleration: Double = 0.05
-        let playerNode: SKSpriteNode = scene.childNode(withName: "player") as! SKSpriteNode
+        let playerNode: SKSpriteNode = self.scene?.childNode(withName: "player") as! SKSpriteNode
         playerNode.texture = SKTexture(imageNamed: "player_\(player.orientation).png")
         let completion: () -> Void = {
-            if (level[levelNumber].grid.hasWon(player: player)) {
-                GameScene.levelNumber += 1
-                GameScene.loadScene(scene: scene)
-                GameScene.loadLevelText()
+            if (GameScene.LEVELS[GameScene.LEVEL_NUMBER].grid.hasWon(player: player)) {
+                GameScene.LEVEL_NUMBER += 1
+                self.loadScene()
+                self.loadLevelText()
             }
         }
         if (diffX != 0) {

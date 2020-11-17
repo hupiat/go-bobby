@@ -11,7 +11,7 @@ import GameplayKit
 
 class GameViewController: UIViewController {
     
-    var scene: SKScene?
+    var scene: GameScene?
     var gameLogic: GameLogic?
 
     override func viewDidLoad() {
@@ -20,18 +20,18 @@ class GameViewController: UIViewController {
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
             if let scene = SKScene(fileNamed: "GameScene") {
-                self.scene = scene
-                GameScene.view = view
+                self.scene = scene as? GameScene
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 
                 // Present the scene
                 view.presentScene(scene)
-                gameLogic = GameLogic(scene: scene)
+                gameLogic = GameLogic(scene: self.scene!)
                 
                 // Loading nodes
-                GameScene.loadScene(scene: scene)
-                GameScene.loadLevelText()
+                self.scene?.loadScene()
+                self.scene?.loadLevelText()
+                self.scene?.loadReloadButton()
             }
             
             view.ignoresSiblingOrder = true
@@ -60,7 +60,7 @@ class GameViewController: UIViewController {
     }
     
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) throws -> Void {
-        var level: LevelProtocol = GameScene.level[GameScene.levelNumber]
+        var level: LevelProtocol = GameScene.LEVELS[GameScene.LEVEL_NUMBER]
         switch (gesture.direction) {
             case .up:
                 gameLogic?.movePlayer(grid: &level.grid, player: level.player, orientation: Orientation.up)

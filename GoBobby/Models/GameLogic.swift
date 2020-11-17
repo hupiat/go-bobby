@@ -10,9 +10,9 @@ import SpriteKit
 
 public struct GameLogic {
     
-    var scene: SKScene
+    var scene: GameScene
     
-    init(scene: SKScene) {
+    init(scene: GameScene) {
         self.scene = scene
     }
     
@@ -36,6 +36,6 @@ public struct GameLogic {
                     diffY += 1
             }
         }
-        GameScene.movePlayer(scene: scene, player: player, diffX: diffX, diffY: diffY)
+        scene.movePlayer(player: player, diffX: diffX, diffY: diffY)
     }
 }
