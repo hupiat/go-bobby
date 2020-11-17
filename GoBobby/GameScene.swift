@@ -19,7 +19,7 @@ class GameScene: SKScene {
     static var LEVELS: [LevelProtocol] = [L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1()]
     
     let levelText: UITextView = UITextView(frame: CGRect(x: 5, y: 5, width: 40, height: 40))
-    let reloadButton: UIButton = UIButton(frame: CGRect(x: 275, y: 10, width: 30, height: 30))
+    let reloadButton: UIButton = UIButton(type: .roundedRect)
     
     @objc func loadScene() -> Void {
         self.removeAllChildren()
@@ -32,6 +32,9 @@ class GameScene: SKScene {
                 wall.position.y = CGFloat(j) * CGFloat(Grid.CASE_PX)
                 self.addChild(wall)
             } else if level.grid.cases[i][j] == Case.player {
+                level.player.X = level.grid.start.pos.X
+                level.player.Y = level.grid.start.pos.Y
+                level.player.orientation = level.grid.start.orientation
                 loadPlayer(player: level.player)
             }
         })
@@ -57,8 +60,9 @@ class GameScene: SKScene {
     
     func loadReloadButton() -> Void {
         let reloadImage: UIImage = UIImage(named: "reload.png")!
+        reloadButton.frame = CGRect(x: 275, y: 10, width: 30, height: 30)
         reloadButton.setImage(reloadImage, for: .normal)
-        reloadButton.addTarget(self, action: #selector(self.loadScene), for: .touchUpInside)
+        reloadButton.addTarget(self, action: #selector(loadScene), for: .touchUpInside)
         self.view?.addSubview(reloadButton)
     }
     

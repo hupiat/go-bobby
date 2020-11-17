@@ -11,6 +11,7 @@ public enum Case: Int {
     case empty
     case brick
     case player
+    case start
     case end
 }
 
@@ -19,12 +20,14 @@ public struct Grid {
     
     var cases: [[Case]]
     var blocks: [Block]
+    var start: (pos: Block, orientation: Orientation)
     var end: Block
     
     init(player: Player, blocks: [Block], end: Block) {
         cases = Array(repeating: Array(repeating: Case.empty, count: GameScene.MAX_HEIGHT), count: GameScene.MAX_WIDTH)
         self.blocks = blocks
         self.end = end
+        self.start = (Block(X: player.X, Y: player.Y), player.orientation)
         for i in 0...GameScene.MAX_WIDTH - 1 {
             for j in 0...GameScene.MAX_HEIGHT - 1 {
                 if end.isAtPos(i: i, j: j) {
@@ -107,7 +110,11 @@ public struct Grid {
         for i in 0...GameScene.MAX_WIDTH - 1 {
             for j in 0...GameScene.MAX_HEIGHT - 1 {
                 if cases[i][j] == Case.player {
-                    cases[i][j] = Case.empty
+                    if (start.pos.isAtPos(i: i, j: j)) {
+                        cases[i][j] = Case.start
+                    } else {
+                        cases[i][j] = Case.empty
+                    }
                     break
                 }
             }
