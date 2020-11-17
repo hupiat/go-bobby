@@ -15,8 +15,8 @@ class GameScene: SKScene {
     static let SCREEN_SIZE: CGRect = UIScreen.main.bounds
     static let MAX_WIDTH: Int = Int(floor(SCREEN_SIZE.width * SCALE_MULTIPLICATOR_WIDTH / CGFloat(Grid.CASE_PX)))
     static let MAX_HEIGHT: Int = Int(floor(SCREEN_SIZE.height * SCALE_MULTIPLICATOR_HEIGHT / CGFloat(Grid.CASE_PX)))
-    static var LEVEL_NUMBER = 16
-    static var LEVELS: [LevelProtocol] = [L1(), L2(), L3(), L4(), L5(), L6(), L7(), L8(), L9(), L10(), L11(), L12(), L13(), L14(), L15(), L16(), L17(), L1(), L1(), L1()]
+    static var LEVEL_NUMBER = 0
+    static var LEVELS: [LevelProtocol] = [L1(), L2(), L3(), L4(), L5(), L6(), L7(), L8(), L9(), L10(), L11(), L12(), L13(), L14(), L15(), L16(), L17(), L18(), L1(), L1()]
     
     let levelText: UITextView = UITextView(frame: CGRect(x: 5, y: 5, width: 40, height: 40))
     let reloadButton: UIButton = UIButton(type: .roundedRect)
