@@ -31,6 +31,7 @@
 		9AD1083425641FE500A3CEA6 /* L6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1083325641FE500A3CEA6 /* L6.swift */; };
 		9AD108392564222400A3CEA6 /* L7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD108382564222400A3CEA6 /* L7.swift */; };
 		9AD1083E2564248B00A3CEA6 /* L8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1083D2564248B00A3CEA6 /* L8.swift */; };
+		9AD1084325642AA400A3CEA6 /* L9.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1084225642AA400A3CEA6 /* L9.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		9AD1083325641FE500A3CEA6 /* L6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L6.swift; sourceTree = "<group>"; };
 		9AD108382564222400A3CEA6 /* L7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L7.swift; sourceTree = "<group>"; };
 		9AD1083D2564248B00A3CEA6 /* L8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L8.swift; sourceTree = "<group>"; };
+		9AD1084225642AA400A3CEA6 /* L9.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L9.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 				9AD1083325641FE500A3CEA6 /* L6.swift */,
 				9AD108382564222400A3CEA6 /* L7.swift */,
 				9AD1083D2564248B00A3CEA6 /* L8.swift */,
+				9AD1084225642AA400A3CEA6 /* L9.swift */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 			files = (
 				9AD1081425640E4900A3CEA6 /* L2.swift in Sources */,
 				9AD10802256292F000A3CEA6 /* LevelProtocol.swift in Sources */,
+				9AD1084325642AA400A3CEA6 /* L9.swift in Sources */,
 				9AD1081925640FCF00A3CEA6 /* L3.swift in Sources */,
 				9AD107922561A6A500A3CEA6 /* GameScene.swift in Sources */,
 				9AD1082F25641F1300A3CEA6 /* L5.swift in Sources */,
