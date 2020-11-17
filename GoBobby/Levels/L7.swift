@@ -18,7 +18,7 @@ public struct L7 : LevelProtocol {
         blocks = [Block(X: 3, Y: 3), Block(X: 2, Y: 2), Block(X: 11, Y: 8), Block(X: 10, Y: 10),
                   Block(X: 1, Y: 17), Block(X: 7, Y: 18), Block(X: 9, Y: 18), Block(X: 9, Y: 13),
                   Block(X: 2, Y: 11), Block(X: 7, Y: 2), Block(X: 9, Y: 8), Block(X: 9, Y: 11),
-                  Block(X: 3, Y: 8), Block(X: 11, Y: 11), Block(X: 11, Y: 11), Block(X: 1, Y: 4)]
+                  Block(X: 3, Y: 8), Block(X: 11, Y: 11), Block(X: 1, Y: 4)]
         end = Block(X: 10, Y: 19)
         grid = Grid(player: player, blocks: blocks, end: end)
     }
