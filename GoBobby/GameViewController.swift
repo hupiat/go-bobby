@@ -94,9 +94,7 @@ class GameViewController: UIViewController {
             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
 
             guard let player = player else { return }
-
             player.play()
-
         } catch _ {
             throw Errors.Runtime
         }
