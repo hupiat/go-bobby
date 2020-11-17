@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct L20 : LevelProtocol {
+struct L20 : LevelProtocol {
     var grid: Grid
     var player: Player
     let blocks: [Block]

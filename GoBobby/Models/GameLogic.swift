@@ -9,7 +9,7 @@ import Foundation
 import SpriteKit
 import AudioToolbox
 
-public struct GameLogic {
+struct GameLogic {
     
     var scene: GameScene
     

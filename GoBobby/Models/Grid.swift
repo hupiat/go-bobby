@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Case: Int {
+enum Case: Int {
     case empty
     case brick
     case player
@@ -15,7 +15,7 @@ public enum Case: Int {
     case end
 }
 
-public struct Grid {
+struct Grid {
     static let CASE_PX: Int = 48
     
     var cases: [[Case]]
