@@ -29,6 +29,7 @@
 		9AD1082A25641BE900A3CEA6 /* L4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1082925641BE900A3CEA6 /* L4.swift */; };
 		9AD1082F25641F1300A3CEA6 /* L5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1082E25641F1300A3CEA6 /* L5.swift */; };
 		9AD1083425641FE500A3CEA6 /* L6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1083325641FE500A3CEA6 /* L6.swift */; };
+		9AD108392564222400A3CEA6 /* L7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD108382564222400A3CEA6 /* L7.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		9AD1082925641BE900A3CEA6 /* L4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L4.swift; sourceTree = "<group>"; };
 		9AD1082E25641F1300A3CEA6 /* L5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L5.swift; sourceTree = "<group>"; };
 		9AD1083325641FE500A3CEA6 /* L6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L6.swift; sourceTree = "<group>"; };
+		9AD108382564222400A3CEA6 /* L7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L7.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 				9AD1082925641BE900A3CEA6 /* L4.swift */,
 				9AD1082E25641F1300A3CEA6 /* L5.swift */,
 				9AD1083325641FE500A3CEA6 /* L6.swift */,
+				9AD108382564222400A3CEA6 /* L7.swift */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				9AD107922561A6A500A3CEA6 /* GameScene.swift in Sources */,
 				9AD1082F25641F1300A3CEA6 /* L5.swift in Sources */,
 				9AD107F525628E6000A3CEA6 /* Block.swift in Sources */,
+				9AD108392564222400A3CEA6 /* L7.swift in Sources */,
 				9AD107942561A6A500A3CEA6 /* GameViewController.swift in Sources */,
 				9AD1082A25641BE900A3CEA6 /* L4.swift in Sources */,
 				9AD1083425641FE500A3CEA6 /* L6.swift in Sources */,
