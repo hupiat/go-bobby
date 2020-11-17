@@ -94,6 +94,9 @@ class GameViewController: UIViewController {
             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
 
             guard let player = player else { return }
+            
+            // Play in loop
+            player.numberOfLoops = -1
             player.play()
         } catch _ {
             throw Errors.Runtime
