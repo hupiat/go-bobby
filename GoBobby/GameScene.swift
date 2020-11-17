@@ -16,7 +16,7 @@ class GameScene: SKScene {
     static let MAX_WIDTH: Int = Int(floor(SCREEN_SIZE.width * SCALE_MULTIPLICATOR_WIDTH / CGFloat(Grid.CASE_PX)))
     static let MAX_HEIGHT: Int = Int(floor(SCREEN_SIZE.height * SCALE_MULTIPLICATOR_HEIGHT / CGFloat(Grid.CASE_PX)))
     static var LEVEL_NUMBER = 0
-    static var LEVELS: [LevelProtocol] = [L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1()]
+    static var LEVELS: [LevelProtocol] = [L1(), L2(), L3(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1(), L1()]
     
     let levelText: UITextView = UITextView(frame: CGRect(x: 5, y: 5, width: 40, height: 40))
     let reloadButton: UIButton = UIButton(type: .roundedRect)
@@ -66,24 +66,17 @@ class GameScene: SKScene {
         self.view?.addSubview(reloadButton)
     }
     
-    func movePlayer(player: Player, diffX: Int, diffY: Int) -> Void {
+    func movePlayer(player: Player, diffX: Int, diffY: Int, callback: @escaping () -> Void) -> Void {
         let animAcceleration: Double = 0.05
         let playerNode: SKSpriteNode = self.scene?.childNode(withName: "player") as! SKSpriteNode
         playerNode.texture = SKTexture(imageNamed: "player_\(player.orientation).png")
-        let completion: () -> Void = {
-            if (GameScene.LEVELS[GameScene.LEVEL_NUMBER].grid.hasWon(player: player)) {
-                GameScene.LEVEL_NUMBER += 1
-                self.loadScene()
-                self.loadLevelText()
-            }
-        }
         if (diffX != 0) {
             let moveX: SKAction = SKAction.moveTo(x: CGFloat(player.X) * CGFloat(Grid.CASE_PX), duration: Double(diffX) * animAcceleration)
-            playerNode.run(moveX, completion: completion)
+            playerNode.run(moveX, completion: callback)
         }
         if (diffY != 0) {
             let moveY: SKAction = SKAction.moveTo(y: CGFloat(player.Y) * CGFloat(Grid.CASE_PX), duration: Double(diffY) * animAcceleration)
-            playerNode.run(moveY, completion: completion)
+            playerNode.run(moveY, completion: callback)
         }
     }
 }

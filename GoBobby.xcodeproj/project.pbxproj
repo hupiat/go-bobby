@@ -23,6 +23,8 @@
 		9AD10802256292F000A3CEA6 /* LevelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD10801256292F000A3CEA6 /* LevelProtocol.swift */; };
 		9AD1080A2562EC9500A3CEA6 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD108092562EC9500A3CEA6 /* Errors.swift */; };
 		9AD1080F2562EFD500A3CEA6 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1080E2562EFD500A3CEA6 /* GameLogic.swift */; };
+		9AD1081425640E4900A3CEA6 /* L2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1081325640E4900A3CEA6 /* L2.swift */; };
+		9AD1081925640FCF00A3CEA6 /* L3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1081825640FCF00A3CEA6 /* L3.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		9AD10801256292F000A3CEA6 /* LevelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProtocol.swift; sourceTree = "<group>"; };
 		9AD108092562EC9500A3CEA6 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		9AD1080E2562EFD500A3CEA6 /* GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
+		9AD1081325640E4900A3CEA6 /* L2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2.swift; sourceTree = "<group>"; };
+		9AD1081825640FCF00A3CEA6 /* L3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L3.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +168,8 @@
 			children = (
 				9AD107EF25628E1F00A3CEA6 /* L1.swift */,
 				9AD10801256292F000A3CEA6 /* LevelProtocol.swift */,
+				9AD1081325640E4900A3CEA6 /* L2.swift */,
+				9AD1081825640FCF00A3CEA6 /* L3.swift */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -299,7 +305,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AD1081425640E4900A3CEA6 /* L2.swift in Sources */,
 				9AD10802256292F000A3CEA6 /* LevelProtocol.swift in Sources */,
+				9AD1081925640FCF00A3CEA6 /* L3.swift in Sources */,
 				9AD107922561A6A500A3CEA6 /* GameScene.swift in Sources */,
 				9AD107F525628E6000A3CEA6 /* Block.swift in Sources */,
 				9AD107942561A6A500A3CEA6 /* GameViewController.swift in Sources */,

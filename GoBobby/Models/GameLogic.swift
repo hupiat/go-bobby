@@ -36,6 +36,13 @@ public struct GameLogic {
                     diffY += 1
             }
         }
-        scene.movePlayer(player: player, diffX: diffX, diffY: diffY)
+        let switchLevel: () -> Void = {
+            if (GameScene.LEVELS[GameScene.LEVEL_NUMBER].grid.hasWon(player: player)) {
+                GameScene.LEVEL_NUMBER += 1
+                scene.loadScene()
+                scene.loadLevelText()
+            }
+        }
+        scene.movePlayer(player: player, diffX: diffX, diffY: diffY, callback: switchLevel)
     }
 }
