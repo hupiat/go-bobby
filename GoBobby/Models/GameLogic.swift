@@ -7,6 +7,7 @@
 
 import Foundation
 import SpriteKit
+import AudioToolbox
 
 public struct GameLogic {
     
@@ -41,6 +42,8 @@ public struct GameLogic {
                 GameScene.LEVEL_NUMBER += 1
                 scene.loadScene()
                 scene.loadLevelText()
+            } else {
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             }
         }
         scene.movePlayer(player: player, diffX: diffX, diffY: diffY, callback: switchLevel)

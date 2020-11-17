@@ -9,4 +9,5 @@ import Foundation
 
 public enum Errors : Error {
     case Unhandled
+    case Runtime
 }

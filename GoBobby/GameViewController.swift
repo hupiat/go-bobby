@@ -8,13 +8,15 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 class GameViewController: UIViewController {
     
     var scene: GameScene?
     var gameLogic: GameLogic?
+    var player: AVAudioPlayer?
 
-    override func viewDidLoad() {
+    override func viewDidLoad() -> Void {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
@@ -27,6 +29,12 @@ class GameViewController: UIViewController {
                 // Present the scene
                 view.presentScene(scene)
                 gameLogic = GameLogic(scene: self.scene!)
+                
+                do {
+                    try self.playSound()
+                } catch _ {
+                    NSLog("Cannot play sound")
+                }
                 
                 // Loading nodes
                 self.scene?.loadScene()
@@ -72,6 +80,25 @@ class GameViewController: UIViewController {
                 gameLogic?.movePlayer(grid: &level.grid, player: level.player, orientation: Orientation.down)
             default:
                 throw Errors.Unhandled
+        }
+    }
+    
+    func playSound() throws -> Void {
+        guard let url = Bundle.main.url(forResource: "background_music", withExtension: "mp3") else { return }
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+
+            // The following line is required for the player to work on iOS 11 
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+
+            guard let player = player else { return }
+
+            player.play()
+
+        } catch _ {
+            throw Errors.Runtime
         }
     }
 

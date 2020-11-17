@@ -25,6 +25,7 @@
 		9AD1080F2562EFD500A3CEA6 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1080E2562EFD500A3CEA6 /* GameLogic.swift */; };
 		9AD1081425640E4900A3CEA6 /* L2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1081325640E4900A3CEA6 /* L2.swift */; };
 		9AD1081925640FCF00A3CEA6 /* L3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1081825640FCF00A3CEA6 /* L3.swift */; };
+		9AD108252564183F00A3CEA6 /* background_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9AD108242564183F00A3CEA6 /* background_music.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		9AD1080E2562EFD500A3CEA6 /* GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
 		9AD1081325640E4900A3CEA6 /* L2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2.swift; sourceTree = "<group>"; };
 		9AD1081825640FCF00A3CEA6 /* L3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L3.swift; sourceTree = "<group>"; };
+		9AD108242564183F00A3CEA6 /* background_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_music.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 		9AD1078A2561A6A500A3CEA6 /* GoBobby */ = {
 			isa = PBXGroup;
 			children = (
+				9AD1081E256417F900A3CEA6 /* Sounds */,
 				9AD107E625628DF300A3CEA6 /* Levels */,
 				9AD107CD2562886F00A3CEA6 /* Models */,
 				9AD1078B2561A6A500A3CEA6 /* AppDelegate.swift */,
@@ -172,6 +175,14 @@
 				9AD1081825640FCF00A3CEA6 /* L3.swift */,
 			);
 			path = Levels;
+			sourceTree = "<group>";
+		};
+		9AD1081E256417F900A3CEA6 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				9AD108242564183F00A3CEA6 /* background_music.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +288,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AD108252564183F00A3CEA6 /* background_music.mp3 in Resources */,
 				9AD107972561A6A500A3CEA6 /* Main.storyboard in Resources */,
 				9AD1078E2561A6A500A3CEA6 /* GameScene.sks in Resources */,
 				9AD107992561A6A700A3CEA6 /* Assets.xcassets in Resources */,
