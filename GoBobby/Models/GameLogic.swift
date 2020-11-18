@@ -9,6 +9,8 @@ import Foundation
 import SpriteKit
 import AudioToolbox
 
+// TODO : fix reload bug
+
 class GameLogic {
     
     var scene: GameScene
