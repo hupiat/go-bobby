@@ -18,12 +18,17 @@ class GameScene: SKScene {
     static var LEVEL_NUMBER = 0
     static var LEVELS: [LevelProtocol] = [L1(), L2(), L3(), L4(), L5(), L6(), L7(), L8(), L9(), L10(), L11(), L12(), L13(), L14(), L15(), L16(), L17(), L18(), L19(), L20()]
     
+    var gameLogic: GameLogic?
     let levelText: UIButton = UIButton(type: .roundedRect)
     let strikesText: UIButton = UIButton(type: .roundedRect)
     let bestStrikesText: UIButton = UIButton(type: .roundedRect)
     let reloadButton: UIButton = UIButton(type: .roundedRect)
     
-    @objc func loadScene() -> Void {
+    func injectLogic(gameLogic: GameLogic) {
+        self.gameLogic = gameLogic
+    }
+    
+    func loadScene() -> Void {
         self.removeAllChildren()
         let level: LevelProtocol = GameScene.LEVELS[GameScene.LEVEL_NUMBER]
         level.grid.iterate(callback: { i, j in
@@ -81,7 +86,7 @@ class GameScene: SKScene {
         let reloadImage: UIImage = UIImage(named: "reload.png")!
         reloadButton.frame = CGRect(x: 275, y: 10, width: 30, height: 30)
         reloadButton.setImage(reloadImage, for: .normal)
-        reloadButton.addTarget(self, action: #selector(loadScene), for: .touchUpInside)
+        reloadButton.addTarget(gameLogic, action: #selector(gameLogic?.reload), for: .touchUpInside)
         self.view?.addSubview(reloadButton)
     }
     

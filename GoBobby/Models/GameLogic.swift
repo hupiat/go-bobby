@@ -20,6 +20,14 @@ class GameLogic {
         self.scene = scene
     }
     
+    @objc func reload() {
+        let level: LevelProtocol = GameScene.LEVELS[GameScene.LEVEL_NUMBER]
+        strikesNumber = 0
+        self.scene.loadScene()
+        self.scene.loadStrikesText(number: strikesNumber)
+        self.scene.loadBestStrikesText(number: level.strikesNumber)
+    }
+    
     func movePlayer(grid: inout Grid, player: Player, orientation: Orientation) {
         var diffX: Int = 0
         var diffY: Int = 0

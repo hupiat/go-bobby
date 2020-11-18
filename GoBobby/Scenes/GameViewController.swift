@@ -29,6 +29,7 @@ class GameViewController: UIViewController {
                 // Present the scene
                 view.presentScene(scene)
                 gameLogic = GameLogic(scene: self.scene!)
+                self.scene?.injectLogic(gameLogic: gameLogic!)
                 
                 do {
                     try self.playSound()
