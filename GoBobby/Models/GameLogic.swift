@@ -23,7 +23,6 @@ class GameLogic {
     func movePlayer(grid: inout Grid, player: Player, orientation: Orientation) {
         var diffX: Int = 0
         var diffY: Int = 0
-        var level: LevelProtocol = GameScene.LEVELS[GameScene.LEVEL_NUMBER]
         player.orientation = orientation
         while grid.movePlayer(player: player, orientation: orientation) {
             switch (orientation) {
@@ -47,6 +46,7 @@ class GameLogic {
         self.scene.loadStrikesText(number: self.strikesNumber)
         self.scene.loadBestStrikesText(number: self.strikesNumber > oldStrikesNumber ? self.strikesNumber : oldStrikesNumber)
         let after: () -> Void = {
+            var level: LevelProtocol = GameScene.LEVELS[GameScene.LEVEL_NUMBER]
             if (level.grid.hasWon(player: player)) {
                 // Storing data
                 if oldStrikesNumber > self.strikesNumber || oldStrikesNumber == 0 {

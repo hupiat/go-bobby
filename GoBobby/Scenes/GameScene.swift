@@ -57,6 +57,7 @@ class GameScene: SKScene {
     }
     
     func loadLevelText() -> Void {
+        levelText.removeFromSuperview()
         levelText.frame = CGRect(x: 5, y: 5, width: 40, height: 40)
         levelText.backgroundColor = UIColor.blue
         levelText.layer.cornerRadius = 20
@@ -67,6 +68,7 @@ class GameScene: SKScene {
     }
     
     func loadStrikesText(number: Int) -> Void {
+        strikesText.removeFromSuperview()
         strikesText.frame = CGRect(x: 110, y: 5, width: 40, height: 40)
         strikesText.backgroundColor = UIColor.darkGray
         strikesText.layer.cornerRadius = 20
@@ -76,6 +78,7 @@ class GameScene: SKScene {
     }
     
     func loadBestStrikesText(number: Int) -> Void {
+        bestStrikesText.removeFromSuperview()
         bestStrikesText.frame = CGRect(x: 170, y: 5, width: 40, height: 40)
         bestStrikesText.backgroundColor = UIColor.systemGreen
         bestStrikesText.layer.cornerRadius = 20
@@ -144,6 +147,7 @@ class GameScene: SKScene {
     }
     
     @objc func loadLevelFromMenu(sender: UIButton) {
+        let repo: Repository = Repository()
         GameScene.LEVEL_NUMBER = sender.tag
         for button in levelsArray {
             button.removeFromSuperview()
@@ -152,7 +156,7 @@ class GameScene: SKScene {
         self.loadScene()
         self.loadLevelText()
         self.loadStrikesText(number: gameLogic?.strikesNumber ?? 0)
-        self.loadBestStrikesText(number: GameScene.LEVELS[GameScene.LEVEL_NUMBER].strikesNumber)
+        self.loadBestStrikesText(number: repo.getStrikesNumber(label: "l\(GameScene.LEVEL_NUMBER + 1)"))
         self.loadReloadButton()
     }
 }
