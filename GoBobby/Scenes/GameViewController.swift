@@ -39,6 +39,8 @@ class GameViewController: UIViewController {
                 // Loading nodes
                 self.scene?.loadScene()
                 self.scene?.loadLevelText()
+                self.scene?.loadStrikesText(number: 0)
+                self.scene?.loadBestStrikesText(number: GameScene.LEVELS[GameScene.LEVEL_NUMBER].strikesNumber)
                 self.scene?.loadReloadButton()
             }
             

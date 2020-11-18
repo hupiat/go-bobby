@@ -8,6 +8,7 @@
 import Foundation
 
 protocol LevelProtocol {
+    var strikesNumber: Int { get set }
     var grid: Grid { get set }
     var player: Player { get set }
     var blocks: [Block] { get }

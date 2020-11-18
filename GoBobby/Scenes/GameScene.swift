@@ -18,7 +18,9 @@ class GameScene: SKScene {
     static var LEVEL_NUMBER = 0
     static var LEVELS: [LevelProtocol] = [L1(), L2(), L3(), L4(), L5(), L6(), L7(), L8(), L9(), L10(), L11(), L12(), L13(), L14(), L15(), L16(), L17(), L18(), L19(), L20()]
     
-    let levelText: UITextView = UITextView(frame: CGRect(x: 5, y: 5, width: 40, height: 40))
+    let levelText: UIButton = UIButton(type: .roundedRect)
+    let strikesText: UIButton = UIButton(type: .roundedRect)
+    let bestStrikesText: UIButton = UIButton(type: .roundedRect)
     let reloadButton: UIButton = UIButton(type: .roundedRect)
     
     @objc func loadScene() -> Void {
@@ -49,13 +51,30 @@ class GameScene: SKScene {
     }
     
     func loadLevelText() -> Void {
-        levelText.textColor = UIColor.white
+        levelText.frame = CGRect(x: 5, y: 5, width: 40, height: 40)
         levelText.backgroundColor = UIColor.blue
-        levelText.textAlignment = .center
         levelText.layer.cornerRadius = 20
-        levelText.usesStandardTextScaling = true
-        levelText.text = String(GameScene.LEVEL_NUMBER + 1)
+        levelText.setTitle(String(GameScene.LEVEL_NUMBER + 1), for: .normal)
+        levelText.setTitleColor(UIColor.white, for: .normal)
         self.view?.addSubview(levelText)
+    }
+    
+    func loadStrikesText(number: Int) -> Void {
+        strikesText.frame = CGRect(x: 110, y: 5, width: 40, height: 40)
+        strikesText.backgroundColor = UIColor.darkGray
+        strikesText.layer.cornerRadius = 20
+        strikesText.setTitle(String(number), for: .normal)
+        strikesText.setTitleColor(UIColor.white, for: .normal)
+        self.view?.addSubview(strikesText)
+    }
+    
+    func loadBestStrikesText(number: Int) -> Void {
+        bestStrikesText.frame = CGRect(x: 170, y: 5, width: 40, height: 40)
+        bestStrikesText.backgroundColor = UIColor.systemGreen
+        bestStrikesText.layer.cornerRadius = 20
+        bestStrikesText.setTitle(String(number), for: .normal)
+        bestStrikesText.setTitleColor(UIColor.white, for: .normal)
+        self.view?.addSubview(bestStrikesText)
     }
     
     func loadReloadButton() -> Void {

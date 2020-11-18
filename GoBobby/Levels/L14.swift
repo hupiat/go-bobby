@@ -8,12 +8,14 @@
 import Foundation
 
 struct L14 : LevelProtocol {
+    var strikesNumber: Int
     var grid: Grid
     var player: Player
     let blocks: [Block]
     let end: Block
     
     init() {
+        strikesNumber = Repository().getStrikesNumber(label: "l14")
         player = Player(X: 9, Y: 10, orientation: Orientation.right)
         blocks = [Block(X: 3, Y: 8), Block(X: 2, Y: 2), Block(X: 4, Y: 8), Block(X: 10, Y: 10),
                   Block(X: 1, Y: 17), Block(X: 1, Y: 18), Block(X: 1, Y: 14), Block(X: 1, Y: 13),

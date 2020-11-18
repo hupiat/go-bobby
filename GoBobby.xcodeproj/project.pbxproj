@@ -164,7 +164,6 @@
 				9AD1078B2561A6A500A3CEA6 /* AppDelegate.swift */,
 				9AD1078D2561A6A500A3CEA6 /* GameScene.sks */,
 				9AD1078F2561A6A500A3CEA6 /* Actions.sks */,
-				9AD107932561A6A500A3CEA6 /* GameViewController.swift */,
 				9AD107952561A6A500A3CEA6 /* Main.storyboard */,
 				9AD107982561A6A700A3CEA6 /* Assets.xcassets */,
 				9AD1079A2561A6A700A3CEA6 /* Info.plist */,
@@ -242,6 +241,7 @@
 		9AD1087E25644E5A00A3CEA6 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				9AD107932561A6A500A3CEA6 /* GameViewController.swift */,
 				9AD107912561A6A500A3CEA6 /* GameScene.swift */,
 			);
 			path = Scenes;
