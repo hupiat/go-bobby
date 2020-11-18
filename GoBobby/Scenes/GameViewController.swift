@@ -31,18 +31,18 @@ class GameViewController: UIViewController {
                 gameLogic = GameLogic(scene: self.scene!)
                 self.scene?.injectLogic(gameLogic: gameLogic!)
                 
-                do {
-                    try self.playSound()
-                } catch _ {
-                    NSLog("Cannot play sound")
-                }
-                
                 // Loading nodes
                 self.scene?.loadScene()
                 self.scene?.loadLevelText()
                 self.scene?.loadStrikesText(number: 0)
                 self.scene?.loadBestStrikesText(number: GameScene.LEVELS[GameScene.LEVEL_NUMBER].strikesNumber)
                 self.scene?.loadReloadButton()
+                
+                do {
+                    try self.playSound()
+                } catch _ {
+                    NSLog("Cannot play sound")
+                }
             }
             
             view.ignoresSiblingOrder = true
@@ -65,8 +65,8 @@ class GameViewController: UIViewController {
             self.view.addGestureRecognizer(swipeDown)
             
             // Development options
-            view.showsFPS = true
-            view.showsNodeCount = true
+            // view.showsFPS = true
+            // view.showsNodeCount = true
         }
     }
     
