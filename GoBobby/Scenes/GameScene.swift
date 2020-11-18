@@ -15,10 +15,11 @@ class GameScene: SKScene {
     static let SCREEN_SIZE: CGRect = UIScreen.main.bounds
     static let MAX_WIDTH: Int = Int(floor(SCREEN_SIZE.width * SCALE_MULTIPLICATOR_WIDTH / CGFloat(Grid.CASE_PX)))
     static let MAX_HEIGHT: Int = Int(floor(SCREEN_SIZE.height * SCALE_MULTIPLICATOR_HEIGHT / CGFloat(Grid.CASE_PX)))
-    static var LEVEL_NUMBER = 0
+    static var LEVEL_NUMBER = Repository().getLevelMax() + 1
     static var LEVELS: [LevelProtocol] = [L1(), L2(), L3(), L4(), L5(), L6(), L7(), L8(), L9(), L10(), L11(), L12(), L13(), L14(), L15(), L16(), L17(), L18(), L19(), L20()]
     
     var gameLogic: GameLogic?
+    var levelsArray: [UIButton] = []
     let levelText: UIButton = UIButton(type: .roundedRect)
     let strikesText: UIButton = UIButton(type: .roundedRect)
     let bestStrikesText: UIButton = UIButton(type: .roundedRect)
@@ -61,6 +62,7 @@ class GameScene: SKScene {
         levelText.layer.cornerRadius = 20
         levelText.setTitle(String(GameScene.LEVEL_NUMBER + 1), for: .normal)
         levelText.setTitleColor(UIColor.white, for: .normal)
+        levelText.addTarget(self, action: #selector(self.loadMenu), for: .touchUpInside)
         self.view?.addSubview(levelText)
     }
     
@@ -86,8 +88,16 @@ class GameScene: SKScene {
         let reloadImage: UIImage = UIImage(named: "reload.png")!
         reloadButton.frame = CGRect(x: 275, y: 10, width: 30, height: 30)
         reloadButton.setImage(reloadImage, for: .normal)
-        reloadButton.addTarget(gameLogic, action: #selector(gameLogic?.reload), for: .touchUpInside)
+        reloadButton.addTarget(self, action: #selector(self.reload), for: .touchUpInside)
         self.view?.addSubview(reloadButton)
+    }
+    
+    @objc func reload() {
+        let level: LevelProtocol = GameScene.LEVELS[GameScene.LEVEL_NUMBER]
+        gameLogic?.strikesNumber = 0
+        self.loadScene()
+        self.loadStrikesText(number: gameLogic?.strikesNumber ?? 0)
+        self.loadBestStrikesText(number: level.strikesNumber)
     }
     
     func movePlayer(player: Player, diffX: Int, diffY: Int, callback: @escaping () -> Void) -> Void {
@@ -102,5 +112,47 @@ class GameScene: SKScene {
             let moveY: SKAction = SKAction.moveTo(y: CGFloat(player.Y) * CGFloat(Grid.CASE_PX), duration: Double(diffY) * animAcceleration)
             playerNode.run(moveY, completion: callback)
         }
+    }
+    
+    @objc func loadMenu() {
+        self.removeAllChildren()
+        let repo: Repository = Repository()
+        var countHorizontal: Int = 1
+        var countVertical: Int = 1
+        strikesText.removeFromSuperview()
+        bestStrikesText.removeFromSuperview()
+        reloadButton.removeFromSuperview()
+        for i in 0...GameScene.LEVELS.count - 1 {
+            let level: UIButton = UIButton(type: .roundedRect)
+            let canPlay: Bool = i <= repo.getLevelMax() + 1
+            level.frame = CGRect(x: 55 * countHorizontal, y: 80 * countVertical, width: 40, height: 40)
+            level.backgroundColor = canPlay ? UIColor.blue : UIColor.lightGray
+            level.layer.cornerRadius = 20
+            level.setTitle(String(i + 1), for: .normal)
+            level.setTitleColor(canPlay ? UIColor.white : UIColor.darkGray, for: .normal)
+            level.isUserInteractionEnabled = canPlay
+            level.tag = i
+            level.addTarget(self, action: #selector(self.loadLevelFromMenu(sender:)), for: .touchUpInside)
+            self.view?.addSubview(level)
+            countHorizontal += 1
+            if countHorizontal % 5 == 0 {
+                countHorizontal = 1
+                countVertical += 1
+            }
+            levelsArray.append(level)
+        }
+    }
+    
+    @objc func loadLevelFromMenu(sender: UIButton) {
+        GameScene.LEVEL_NUMBER = sender.tag
+        for button in levelsArray {
+            button.removeFromSuperview()
+        }
+        gameLogic?.strikesNumber = 0
+        self.loadScene()
+        self.loadLevelText()
+        self.loadStrikesText(number: gameLogic?.strikesNumber ?? 0)
+        self.loadBestStrikesText(number: GameScene.LEVELS[GameScene.LEVEL_NUMBER].strikesNumber)
+        self.loadReloadButton()
     }
 }
