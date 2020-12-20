@@ -7,5 +7,3 @@ Slide to find your way between blocks
 ![screenshot](./screenshot_1.png)
 
 ![screenshot](./screenshot_2.png)
-
-[Waiting for App store link]
