@@ -1,6 +1,8 @@
 # go-bobby
 
-Go Bobby ! is a head breaker mobile game for iOS i made for my nephew
+[POST-MORTEM --> never been distributed :'(]
+
+Go Bobby ! is a head breaker mobile game for iOS
 
 Slide to find your way between blocks
 
