@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": false,
   "module": "ES6",
-  "moduleResolution": "Node",
+  "moduleResolution": "NodeNext",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
