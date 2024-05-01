@@ -1,8 +1,8 @@
 # go-bobby
 
-[POST-MORTEM --> never been distributed :'(]
+(Completely refactoring)
 
-Go Bobby ! is a head breaker mobile game for iOS
+Go Bobby ! is an action / head breaker mobile game
 
 Slide to find your way between blocks
 
