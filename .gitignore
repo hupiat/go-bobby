@@ -1,0 +1,7 @@
+# build
+GoBobby/.expo/
+GoBobby/.bundle/
+GoBobby/node_modules/
+
+# misc
+.DS_Store
