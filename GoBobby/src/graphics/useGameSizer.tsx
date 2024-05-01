@@ -7,7 +7,7 @@ interface IGameSizer {
   gameElementPx: number;
 }
 
-export default function useGameSizer() {
+export default function useGameSizer(): IGameSizer {
   const deviceWidthPx = useWindowDimensions().width;
   const deviceHeightPx = useWindowDimensions().height;
   const gameElementPx = 24;
