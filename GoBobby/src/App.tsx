@@ -10,9 +10,11 @@ import React from 'react';
 import {SafeAreaView, useColorScheme} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Grid from './graphics/Grid';
+import useScreenOrientation from './devices/useScreenOrientation';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+  useScreenOrientation();
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
