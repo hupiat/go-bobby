@@ -12,3 +12,6 @@ AppRegistry.registerComponent(appName, () => App);
 // Needed for expo
 // This may be commented in production
 registerRootComponent(App);
+
+// Debugger npx react-dev-tools
+fetch('http://localhost:8097');
