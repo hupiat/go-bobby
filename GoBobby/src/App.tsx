@@ -32,7 +32,13 @@ function App(): React.JSX.Element {
         top: 0,
         left: 0,
       }}>
-      <Grid />
+      <Grid
+        protocol={{
+          playerStart: [10, 10],
+          removed: [],
+          walls: [],
+        }}
+      />
     </View>
   );
 }
