@@ -39,10 +39,8 @@ export default function usePlacementBuilder(): IPlacementBuilder {
         );
       }
 
-      // TODO : test behaviour with landscape mode
-      const left = y * gameElementPx;
-      // TODO : not good
-      const top = (x / 20) * gameElementPx;
+      const left = x * gameElementPx;
+      const top = y * gameElementPx;
 
       return StyleSheet.create({
         position: {

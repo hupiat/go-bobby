@@ -11,13 +11,13 @@ export default function Grid() {
   const {horizontalSpaces, verticalSpaces} = usePlacementBuilder();
 
   const lineLeft = [];
-  for (let i = 0; i < horizontalSpaces; i++) {
-    lineLeft.push(<Wall type="Brick" x={i} y={0} key={i} />);
+  for (let i = 0; i < verticalSpaces; i++) {
+    lineLeft.push(<Wall type="Brick" x={0} y={i} key={i} />);
   }
 
   const lineRight = [];
-  for (let i = 0; i < horizontalSpaces; i++) {
-    lineRight.push(<Wall type="Brick" x={i} y={14} key={i} />);
+  for (let i = 0; i < verticalSpaces; i++) {
+    lineRight.push(<Wall type="Brick" x={14} y={i} key={i} />);
   }
 
   return (
