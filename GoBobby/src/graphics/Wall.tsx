@@ -20,8 +20,9 @@ export default function Wall({type, x, y}: IProps) {
         source={require('../../assets/walls/brick_wall.png')}
         alt={type}
         style={{
-          left: (pos.left + 'px') as DimensionValue,
-          top: (pos.top + 'px') as DimensionValue,
+          position: 'absolute',
+          left: pos.left,
+          top: pos.top,
         }}
       />
     );

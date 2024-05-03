@@ -7,7 +7,7 @@
 
 import React from 'react';
 
-import {SafeAreaView, useColorScheme} from 'react-native';
+import {SafeAreaView, View, useColorScheme} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Grid from './graphics/Grid';
 import useScreenOrientation from './devices/useScreenOrientation';
@@ -21,9 +21,19 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <View
+      style={{
+        height: '100%',
+        width: '100%',
+        backgroundColor: 'grey',
+        position: 'absolute',
+        right: 0,
+        bottom: 0,
+        top: 0,
+        left: 0,
+      }}>
       <Grid />
-    </SafeAreaView>
+    </View>
   );
 }
 
