@@ -16,12 +16,12 @@ export default function usePlacementBuilder(): IPlacementBuilder {
 
   // Landscape mode
   const horizontalSpaces = useMemo<number>(
-    () => Math.round(deviceHeightPx / gameElementPx),
-    [deviceHeightPx, gameElementPx],
-  );
-  const verticalSpaces = useMemo<number>(
     () => Math.round(deviceWidthPx / gameElementPx),
     [deviceWidthPx, gameElementPx],
+  );
+  const verticalSpaces = useMemo<number>(
+    () => Math.round(deviceHeightPx / gameElementPx),
+    [deviceHeightPx, gameElementPx],
   );
 
   const getPositionStyle = useCallback(

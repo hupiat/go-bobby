@@ -17,7 +17,9 @@ export default function Grid() {
 
   const lineRight = [];
   for (let i = 0; i < verticalSpaces; i++) {
-    lineRight.push(<Wall type="Brick" x={14} y={i} key={i} />);
+    lineRight.push(
+      <Wall type="Brick" x={horizontalSpaces - 5} y={i} key={i} />,
+    );
   }
 
   return (
@@ -26,8 +28,4 @@ export default function Grid() {
       {lineRight}
     </>
   );
-
-  //   return {
-  //     {}
-  //   }
 }

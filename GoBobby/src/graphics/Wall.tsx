@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import usePlacementBuilder from '../engine/usePlacementBuilder';
-import {Image} from 'react-native';
+import {DimensionValue, Image} from 'react-native';
 
 export type WallType = 'Brick';
 
@@ -14,11 +14,15 @@ export default function Wall({type, x, y}: IProps) {
   const {getPositionStyle} = usePlacementBuilder();
 
   const render = useMemo<JSX.Element>(() => {
+    const pos = getPositionStyle(x, y).position;
     return (
       <Image
         source={require('../../assets/walls/brick_wall.png')}
         alt={type}
-        style={getPositionStyle(x, y).position}
+        style={{
+          left: (pos.left + 'px') as DimensionValue,
+          top: (pos.top + 'px') as DimensionValue,
+        }}
       />
     );
   }, [type, x, y]);
