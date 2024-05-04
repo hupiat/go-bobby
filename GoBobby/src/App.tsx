@@ -39,6 +39,7 @@ function App(): React.JSX.Element {
         playerStart: [10, 10],
         removed: [],
         walls: [],
+        exit: [15, 10],
       }}
     />
   );

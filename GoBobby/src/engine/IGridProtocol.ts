@@ -7,4 +7,5 @@ export interface IGridProtocol {
   }[];
   removed: [number, number][];
   playerStart: [number, number];
+  exit: [number, number];
 }

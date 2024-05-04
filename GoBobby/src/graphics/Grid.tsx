@@ -3,6 +3,7 @@ import usePlacementBuilder from '../engine/usePlacementBuilder';
 import Wall from './Wall';
 import {IGridProtocol} from '../engine/IGridProtocol';
 import {View} from 'react-native';
+import Player from './Player';
 
 interface IProps {
   protocol: IGridProtocol;
@@ -14,6 +15,7 @@ export default function Grid({protocol}: IProps) {
   // Displaying base grid
 
   const grid = [];
+
   for (let i = 0; i < verticalSpaces; i++) {
     grid.push(<Wall type="Brick" x={0} y={i} key={i + '-left'} />);
     grid.push(
@@ -28,7 +30,26 @@ export default function Grid({protocol}: IProps) {
   }
 
   // Then applying protocols
-  // TODO
+
+  // Exit gate
+  grid.push(<Wall type="Exit" x={protocol.exit[0]} y={protocol.exit[1]} />);
+
+  // Player start position
+  grid.push(<Player x={protocol.playerStart[0]} y={protocol.playerStart[1]} />);
+
+  // Post-processing walls
+  protocol.walls.forEach((wall, i) =>
+    grid.push(
+      <Wall
+        x={wall.position[0]}
+        y={wall.position[1]}
+        type={wall.type}
+        key={i}
+      />,
+    ),
+  );
+
+  // TODO : removed ones
 
   return (
     <View
