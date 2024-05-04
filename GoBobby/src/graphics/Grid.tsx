@@ -5,6 +5,8 @@ import {IGridProtocol} from '../engine/IGridProtocol';
 import {View} from 'react-native';
 import Player from './Player';
 
+const HUD_SHIFT = 2;
+
 interface IProps {
   protocol: IGridProtocol;
 }
@@ -16,14 +18,14 @@ export default function Grid({protocol}: IProps) {
 
   // Displaying base grid
 
-  for (let i = 0; i < verticalSpaces; i++) {
+  for (let i = HUD_SHIFT; i < verticalSpaces; i++) {
     grid.push(<Wall type="brick" x={0} y={i} key={i + '-left'} />);
     grid.push(
       <Wall type="brick" x={horizontalSpaces - 1} y={i} key={i + '-right'} />,
     );
   }
   for (let j = 1; j < horizontalSpaces; j++) {
-    grid.push(<Wall type="brick" x={j} y={0} key={j + '-top'} />);
+    grid.push(<Wall type="brick" x={j} y={HUD_SHIFT} key={j + '-top'} />);
     grid.push(
       <Wall type="brick" x={j} y={verticalSpaces - 1} key={j + '-bottom'} />,
     );
@@ -32,7 +34,9 @@ export default function Grid({protocol}: IProps) {
   // Then applying protocols
 
   // Exit gate
-  grid.push(<Wall type="exit" x={protocol.exit[0]} y={protocol.exit[1]} />);
+  grid.push(
+    <Wall type="exit" x={protocol.exit[0]} y={protocol.exit[1]} key={'exit'} />,
+  );
 
   // Player start position
   grid.push(
@@ -40,6 +44,7 @@ export default function Grid({protocol}: IProps) {
       x={protocol.playerStart[0]}
       y={protocol.playerStart[1]}
       orientation={'right'}
+      key="player"
     />,
   );
 
