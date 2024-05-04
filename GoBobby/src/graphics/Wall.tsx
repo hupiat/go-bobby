@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import usePlacementBuilder from '../engine/usePlacementBuilder';
-import {DimensionValue, Image} from 'react-native';
+import {Image} from 'react-native';
 
 export type WallType = 'Brick';
 

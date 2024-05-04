@@ -1,6 +1,7 @@
 import {useCallback, useMemo} from 'react';
 import useGameSizer from '../graphics/useGameSizer';
 import {StyleSheet} from 'react-native';
+import useScreenOrientation from '../devices/useScreenOrientation';
 
 interface IPlacementBuilder {
   horizontalSpaces: number;
@@ -13,6 +14,7 @@ interface IPlacementBuilder {
 
 export default function usePlacementBuilder(): IPlacementBuilder {
   const {deviceHeightPx, deviceWidthPx, gameElementPx} = useGameSizer();
+  const orientation = useScreenOrientation();
 
   // Landscape mode
   const horizontalSpaces = useMemo<number>(
@@ -35,7 +37,11 @@ export default function usePlacementBuilder(): IPlacementBuilder {
             horizontalSpaces +
             ') and vertical(' +
             verticalSpaces +
-            ') in landscape mode',
+            ') in landscape mode, but are : horizontal(' +
+            x +
+            ') and vertical(' +
+            y +
+            ')',
         );
       }
 
@@ -49,7 +55,7 @@ export default function usePlacementBuilder(): IPlacementBuilder {
         },
       });
     },
-    [horizontalSpaces, verticalSpaces],
+    [horizontalSpaces, verticalSpaces, orientation],
   );
 
   return {

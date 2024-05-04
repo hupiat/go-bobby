@@ -1,8 +1,8 @@
 import React from 'react';
-import {Text} from 'react-native';
 import usePlacementBuilder from '../engine/usePlacementBuilder';
 import Wall from './Wall';
 import {IGridProtocol} from '../engine/IGridProtocol';
+import {View} from 'react-native';
 
 interface IProps {
   protocol: IGridProtocol;
@@ -12,8 +12,6 @@ export default function Grid({protocol}: IProps) {
   const {horizontalSpaces, verticalSpaces} = usePlacementBuilder();
 
   // Displaying base grid
-
-  // TODO : wait for landscape mode init (crashing)
 
   const grid = [];
   for (let i = 0; i < verticalSpaces; i++) {
@@ -32,5 +30,19 @@ export default function Grid({protocol}: IProps) {
   // Then applying protocols
   // TODO
 
-  return <>{grid}</>;
+  return (
+    <View
+      style={{
+        height: '100%',
+        width: '100%',
+        backgroundColor: 'grey',
+        position: 'absolute',
+        right: 0,
+        bottom: 0,
+        top: 0,
+        left: 0,
+      }}>
+      {grid}
+    </View>
+  );
 }
