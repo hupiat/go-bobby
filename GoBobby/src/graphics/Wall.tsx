@@ -2,7 +2,7 @@ import React, {useMemo} from 'react';
 import usePlacementBuilder from '../engine/usePlacementBuilder';
 import {Image} from 'react-native';
 
-export type WallType = 'Brick' | 'Exit';
+export type WallType = 'brick' | 'exit';
 
 interface IProps {
   x: number;
@@ -17,11 +17,10 @@ export default function Wall({type, x, y}: IProps) {
     let path;
     const pos = getPositionStyle(x, y).position;
     switch (type) {
-      // require is a static import call so we cannot do otherwise
-      case 'Brick':
+      case 'brick':
         path = require('../../assets/walls/brick_wall.png');
         break;
-      case 'Exit':
+      case 'exit':
         path = require('../../assets/walls/exit_wall.png');
         break;
     }

@@ -12,30 +12,36 @@ interface IProps {
 export default function Grid({protocol}: IProps) {
   const {horizontalSpaces, verticalSpaces} = usePlacementBuilder();
 
-  // Displaying base grid
-
   const grid = [];
 
+  // Displaying base grid
+
   for (let i = 0; i < verticalSpaces; i++) {
-    grid.push(<Wall type="Brick" x={0} y={i} key={i + '-left'} />);
+    grid.push(<Wall type="brick" x={0} y={i} key={i + '-left'} />);
     grid.push(
-      <Wall type="Brick" x={horizontalSpaces - 1} y={i} key={i + '-right'} />,
+      <Wall type="brick" x={horizontalSpaces - 1} y={i} key={i + '-right'} />,
     );
   }
   for (let j = 1; j < horizontalSpaces; j++) {
-    grid.push(<Wall type="Brick" x={j} y={0} key={j + '-top'} />);
+    grid.push(<Wall type="brick" x={j} y={0} key={j + '-top'} />);
     grid.push(
-      <Wall type="Brick" x={j} y={verticalSpaces - 1} key={j + '-bottom'} />,
+      <Wall type="brick" x={j} y={verticalSpaces - 1} key={j + '-bottom'} />,
     );
   }
 
   // Then applying protocols
 
   // Exit gate
-  grid.push(<Wall type="Exit" x={protocol.exit[0]} y={protocol.exit[1]} />);
+  grid.push(<Wall type="exit" x={protocol.exit[0]} y={protocol.exit[1]} />);
 
   // Player start position
-  grid.push(<Player x={protocol.playerStart[0]} y={protocol.playerStart[1]} />);
+  grid.push(
+    <Player
+      x={protocol.playerStart[0]}
+      y={protocol.playerStart[1]}
+      orientation={'right'}
+    />,
+  );
 
   // Post-processing walls
   protocol.walls.forEach((wall, i) =>
