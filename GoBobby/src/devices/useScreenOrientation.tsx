@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import * as ScreenOrientation from 'expo-screen-orientation';
+import useEffectAsync from '../utils/useEffectAsync';
 
 // Landscape mode support
 
@@ -48,8 +49,8 @@ export default function useScreenOrientation(): LANDSCAPE_MODE {
     }
   };
 
-  useEffect(() => {
-    checkOrientation();
+  useEffectAsync(async () => {
+    await checkOrientation();
     ScreenOrientation.addOrientationChangeListener(listener =>
       handleOrientationChange(listener.orientationInfo.orientation),
     );
