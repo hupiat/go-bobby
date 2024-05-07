@@ -1,7 +1,7 @@
 import React from 'react';
 import usePlacementBuilder from '../engine/usePlacementBuilder';
 import Wall from './Wall';
-import {IGridProtocol} from '../engine/IGridProtocol';
+import {IGridProtocol, WallProtocol} from '../engine/IGridProtocol';
 import {View} from 'react-native';
 import Player from './Player';
 
@@ -11,24 +11,66 @@ interface IProps {
   protocol: IGridProtocol;
 }
 
+// Each element should be memoized by itself (responsability principle)
+
 export default function Grid({protocol}: IProps) {
   const {horizontalSpaces, verticalSpaces} = usePlacementBuilder();
 
   const grid = [];
 
-  // Displaying base grid
+  const continueIfRemoved = (wall: WallProtocol): boolean =>
+    protocol.removed.some(w => w === wall);
+
+  // Displaying base grid (blocking gates)
+  // Could be partially complete
 
   for (let i = HUD_SHIFT; i < verticalSpaces; i++) {
-    grid.push(<Wall type="brick" x={0} y={i} key={i + '-left'} />);
-    grid.push(
-      <Wall type="brick" x={horizontalSpaces - 1} y={i} key={i + '-right'} />,
-    );
+    const f_x = 0;
+    const s_x = horizontalSpaces - 1;
+    const y = i;
+
+    // Left line
+    if (
+      !continueIfRemoved({
+        position: [f_x, y],
+        type: 'brick',
+      })
+    ) {
+      grid.push(<Wall type="brick" x={f_x} y={y} key={i + '-left'} />);
+    }
+    // Right line
+    if (
+      !continueIfRemoved({
+        position: [s_x, y],
+        type: 'brick',
+      })
+    ) {
+      grid.push(<Wall type="brick" x={s_x} y={y} key={i + '-right'} />);
+    }
   }
   for (let j = 1; j < horizontalSpaces; j++) {
-    grid.push(<Wall type="brick" x={j} y={HUD_SHIFT} key={j + '-top'} />);
-    grid.push(
-      <Wall type="brick" x={j} y={verticalSpaces - 1} key={j + '-bottom'} />,
-    );
+    const x = j;
+    const f_y = HUD_SHIFT;
+    const s_y = verticalSpaces - 1;
+
+    // Top line
+    if (
+      !continueIfRemoved({
+        position: [x, f_y],
+        type: 'brick',
+      })
+    ) {
+      grid.push(<Wall type="brick" x={x} y={f_y} key={j + '-top'} />);
+    }
+    // Bottom line
+    if (
+      !continueIfRemoved({
+        position: [x, s_y],
+        type: 'brick',
+      })
+    ) {
+      grid.push(<Wall type="brick" x={x} y={s_y} key={j + '-bottom'} />);
+    }
   }
 
   // Then applying protocols
@@ -49,18 +91,18 @@ export default function Grid({protocol}: IProps) {
   );
 
   // Post-processing walls
-  protocol.walls.forEach((wall, i) =>
-    grid.push(
-      <Wall
-        x={wall.position[0]}
-        y={wall.position[1]}
-        type={wall.type}
-        key={i}
-      />,
-    ),
-  );
-
-  // TODO : removed ones
+  protocol.walls
+    .filter(w => !continueIfRemoved(w))
+    .forEach((wall, i) =>
+      grid.push(
+        <Wall
+          x={wall.position[0]}
+          y={wall.position[1]}
+          type={wall.type}
+          key={i}
+        />,
+      ),
+    );
 
   return (
     <View
