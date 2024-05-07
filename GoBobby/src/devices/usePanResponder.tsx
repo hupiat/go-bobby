@@ -1,4 +1,10 @@
-import {useRef} from 'react';
+import {
+  useDeferredValue,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import {PanResponder} from 'react-native';
 import {PlayerOrientation} from '../graphics/Player';
 
@@ -7,6 +13,18 @@ const MOVE_GESTURE_TOLERANCY = 50;
 export type PanResponderSuscriber = (orientation: PlayerOrientation) => boolean;
 
 export default function usePanResponder(suscriber: PanResponderSuscriber) {
+  const [orientation, setOrientation] = useState<PlayerOrientation | null>(
+    null,
+  );
+  const orientationDeferred = useDeferredValue(orientation);
+
+  useLayoutEffect(() => {
+    if (orientationDeferred) {
+      suscriber(orientationDeferred);
+    }
+    return () => setOrientation(null);
+  }, [orientationDeferred]);
+
   return useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -15,16 +33,16 @@ export default function usePanResponder(suscriber: PanResponderSuscriber) {
       onMoveShouldSetPanResponderCapture: () => true,
       onPanResponderMove(e, gestureState) {
         if (gestureState.dx > MOVE_GESTURE_TOLERANCY) {
-          suscriber('right');
+          setOrientation('right');
         }
         if (gestureState.dx < -MOVE_GESTURE_TOLERANCY) {
-          suscriber('left');
+          setOrientation('left');
         }
         if (gestureState.dy > MOVE_GESTURE_TOLERANCY) {
-          suscriber('bottom');
+          setOrientation('bottom');
         }
         if (gestureState.dy < -MOVE_GESTURE_TOLERANCY) {
-          suscriber('top');
+          setOrientation('top');
         }
       },
     }),
