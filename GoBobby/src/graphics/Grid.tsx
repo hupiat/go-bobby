@@ -4,6 +4,7 @@ import Wall from './Wall';
 import {IGridProtocol, WallProtocol} from '../engine/IGridProtocol';
 import {View} from 'react-native';
 import Player from './Player';
+import usePanResponder from '../devices/usePanResponder';
 
 const HUD_SHIFT = 2;
 
@@ -14,6 +15,7 @@ interface IProps {
 // Each element should be memoized by itself (responsability principle)
 
 export default function Grid({protocol}: IProps) {
+  const panResponder = usePanResponder();
   const {horizontalSpaces, verticalSpaces} = usePlacementBuilder();
 
   const grid = [];
@@ -115,7 +117,8 @@ export default function Grid({protocol}: IProps) {
         bottom: 0,
         top: 0,
         left: 0,
-      }}>
+      }}
+      {...panResponder.panHandlers}>
       {grid}
     </View>
   );
