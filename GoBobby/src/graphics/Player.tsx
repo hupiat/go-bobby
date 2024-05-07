@@ -41,7 +41,7 @@ export default function Player({x, y, orientation}: IProps) {
         }}
       />
     );
-  }, [x, y]);
+  }, [x, y, orientation]);
 
   return render;
 }

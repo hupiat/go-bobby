@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import usePlacementBuilder from '../engine/usePlacementBuilder';
 import Wall from './Wall';
 import {IGridProtocol, WallProtocol} from '../engine/IGridProtocol';
 import {View} from 'react-native';
-import Player from './Player';
+import Player, {PlayerOrientation} from './Player';
 import usePanResponder from '../devices/usePanResponder';
 
 const HUD_SHIFT = 2;
@@ -15,8 +15,10 @@ interface IProps {
 // Each element should be memoized by itself (responsability principle)
 
 export default function Grid({protocol}: IProps) {
-  const panResponder = usePanResponder(orientation => {
-    console.log(orientation);
+  const [playerOrientation, setPlayerOrientation] =
+    useState<PlayerOrientation>('right');
+  const panResponderRef = usePanResponder(orientation => {
+    setPlayerOrientation(orientation);
     return false;
   });
   const {horizontalSpaces, verticalSpaces} = usePlacementBuilder();
@@ -90,7 +92,7 @@ export default function Grid({protocol}: IProps) {
     <Player
       x={protocol.playerStart[0]}
       y={protocol.playerStart[1]}
-      orientation={'right'}
+      orientation={playerOrientation}
       key="player"
     />,
   );
@@ -121,7 +123,7 @@ export default function Grid({protocol}: IProps) {
         top: 0,
         left: 0,
       }}
-      {...panResponder.panHandlers}>
+      {...panResponderRef.panHandlers}>
       {grid}
     </View>
   );
