@@ -15,7 +15,10 @@ interface IProps {
 // Each element should be memoized by itself (responsability principle)
 
 export default function Grid({protocol}: IProps) {
-  const panResponder = usePanResponder();
+  const panResponder = usePanResponder(orientation => {
+    console.log(orientation);
+    return false;
+  });
   const {horizontalSpaces, verticalSpaces} = usePlacementBuilder();
 
   const grid = [];
