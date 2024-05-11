@@ -1,5 +1,7 @@
 import React, {useDeferredValue, useState} from 'react';
-import usePlacementBuilder from '../engine/usePlacementBuilder';
+import usePlacementBuilder, {
+  compareGamePositions,
+} from '../engine/usePlacementBuilder';
 import Wall from './Wall';
 import {
   GamePosition,
@@ -30,24 +32,58 @@ export default function Grid({protocol}: IProps) {
 
   // Moving player callback
 
-  const panResponderRef = usePanResponder(orientation => {
-    // This one is deferred internally
-    setPlayerOrientation(orientation);
-    let hasMoved = false;
+  const panResponderRef = usePanResponder(playerOrientation => {
+    // This one is deferred internally (player orientation)
+    setPlayerOrientation(playerOrientation);
+    // Not this one (player position)
     setPlayerPosition(playerPosition => {
       let newValue = playerPosition;
-      movePlayerLoop: for (let i = playerPosition[0]; ; i++) {
-        newValue = [newValue[0] + 1, newValue[1]];
-        console.log(newValue);
-        if ([...grid.keys()].some(pos => pos[0] === newValue[0])) {
-          break movePlayerLoop;
-        }
+      const walls = [...grid.entries()]
+        .filter(e => e[1].type.prototype === Wall.prototype)
+        .map(e => e[0]);
+      const isStucked = (
+        callback: (first: GamePosition, other: GamePosition) => boolean,
+      ) => walls.some(pos => compareGamePositions(pos, newValue, callback));
+      switch (playerOrientation) {
+        case 'right':
+          for (
+            let i = playerPosition[0];
+            !isStucked((f, o) => f[0] === o[0] + 1 && f[1] === o[1]);
+            i++
+          ) {
+            newValue = [newValue[0] + 1, newValue[1]];
+          }
+          break;
+        case 'left':
+          for (
+            let i = playerPosition[0];
+            !isStucked((f, o) => f[0] === o[0] - 1 && f[1] === o[1]);
+            i++
+          ) {
+            newValue = [newValue[0] - 1, newValue[1]];
+          }
+          break;
+        case 'top':
+          for (
+            let j = playerPosition[1];
+            !isStucked((f, o) => f[0] === o[0] && f[1] === o[1] - 1);
+            j++
+          ) {
+            newValue = [newValue[0], newValue[1] - 1];
+          }
+          break;
+        case 'bottom':
+          for (
+            let j = playerPosition[1];
+            !isStucked((f, o) => f[0] === o[0] && f[1] === o[1] + 1);
+            j++
+          ) {
+            newValue = [newValue[0], newValue[1] + 1];
+          }
+          break;
       }
-      hasMoved = newValue !== playerPosition;
       return newValue;
     });
-    console.log(hasMoved);
-    return hasMoved;
   });
   const {horizontalSpaces, verticalSpaces} = usePlacementBuilder();
 

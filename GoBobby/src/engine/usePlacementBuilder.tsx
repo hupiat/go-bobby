@@ -2,6 +2,7 @@ import {useCallback, useMemo} from 'react';
 import useGameSizer from '../graphics/useGameSizer';
 import {StyleSheet} from 'react-native';
 import useScreenOrientation from '../devices/useScreenOrientation';
+import {GamePosition} from './IGridProtocol';
 
 interface IPlacementBuilder {
   horizontalSpaces: number;
@@ -64,3 +65,11 @@ export default function usePlacementBuilder(): IPlacementBuilder {
     getPositionStyle,
   };
 }
+
+export const compareGamePositions = (
+  first: GamePosition,
+  other: GamePosition,
+  callback?: (first: GamePosition, other: GamePosition) => boolean,
+) =>
+  (first[0] === other[0] && first[1] === other[1]) ||
+  (callback && callback(first, other));

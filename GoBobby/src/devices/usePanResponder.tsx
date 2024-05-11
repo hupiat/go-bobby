@@ -10,7 +10,7 @@ import {PlayerOrientation} from '../graphics/Player';
 
 const MOVE_GESTURE_TOLERANCY = 50;
 
-export type PanResponderSuscriber = (orientation: PlayerOrientation) => boolean;
+export type PanResponderSuscriber = (orientation: PlayerOrientation) => void;
 
 export default function usePanResponder(suscriber: PanResponderSuscriber) {
   const [orientation, setOrientation] = useState<PlayerOrientation | null>(
