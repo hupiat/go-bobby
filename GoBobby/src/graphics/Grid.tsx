@@ -1,7 +1,11 @@
-import React, {useState} from 'react';
+import React, {useDeferredValue, useState} from 'react';
 import usePlacementBuilder from '../engine/usePlacementBuilder';
 import Wall from './Wall';
-import {IGridProtocol, WallProtocol} from '../engine/IGridProtocol';
+import {
+  GamePosition,
+  IGridProtocol,
+  WallProtocol,
+} from '../engine/IGridProtocol';
 import {View} from 'react-native';
 import Player, {PlayerOrientation} from './Player';
 import usePanResponder from '../devices/usePanResponder';
@@ -15,18 +19,42 @@ interface IProps {
 // Each element should be memoized by itself (responsability principle)
 
 export default function Grid({protocol}: IProps) {
+  const grid = new Map<GamePosition, JSX.Element>();
+
   const [playerOrientation, setPlayerOrientation] =
     useState<PlayerOrientation>('right');
+  const [playerPosition, setPlayerPosition] = useState<GamePosition>(
+    protocol.playerStart,
+  );
+  const playerPositionDeferred = useDeferredValue(playerPosition);
+
+  // Moving player callback
+
   const panResponderRef = usePanResponder(orientation => {
+    // This one is deferred internally
     setPlayerOrientation(orientation);
-    return false;
+    let hasMoved = false;
+    setPlayerPosition(playerPosition => {
+      let newValue = playerPosition;
+      movePlayerLoop: for (let i = playerPosition[0]; ; i++) {
+        newValue = [newValue[0] + 1, newValue[1]];
+        console.log(newValue);
+        if ([...grid.keys()].some(pos => pos[0] === newValue[0])) {
+          break movePlayerLoop;
+        }
+      }
+      hasMoved = newValue !== playerPosition;
+      return newValue;
+    });
+    console.log(hasMoved);
+    return hasMoved;
   });
   const {horizontalSpaces, verticalSpaces} = usePlacementBuilder();
 
-  const grid = [];
-
   const continueIfRemoved = (wall: WallProtocol): boolean =>
     protocol.removed.some(w => w === wall);
+
+  // Building grid
 
   // Displaying base grid (blocking gates)
   // Could be partially complete
@@ -43,7 +71,7 @@ export default function Grid({protocol}: IProps) {
         type: 'brick',
       })
     ) {
-      grid.push(<Wall type="brick" x={f_x} y={y} key={i + '-left'} />);
+      grid.set([f_x, y], <Wall type="brick" x={f_x} y={y} key={i + '-left'} />);
     }
     // Right line
     if (
@@ -52,7 +80,10 @@ export default function Grid({protocol}: IProps) {
         type: 'brick',
       })
     ) {
-      grid.push(<Wall type="brick" x={s_x} y={y} key={i + '-right'} />);
+      grid.set(
+        [s_x, y],
+        <Wall type="brick" x={s_x} y={y} key={i + '-right'} />,
+      );
     }
   }
   for (let j = 1; j < horizontalSpaces; j++) {
@@ -67,7 +98,7 @@ export default function Grid({protocol}: IProps) {
         type: 'brick',
       })
     ) {
-      grid.push(<Wall type="brick" x={x} y={f_y} key={j + '-top'} />);
+      grid.set([x, f_y], <Wall type="brick" x={x} y={f_y} key={j + '-top'} />);
     }
     // Bottom line
     if (
@@ -76,22 +107,27 @@ export default function Grid({protocol}: IProps) {
         type: 'brick',
       })
     ) {
-      grid.push(<Wall type="brick" x={x} y={s_y} key={j + '-bottom'} />);
+      grid.set(
+        [x, s_y],
+        <Wall type="brick" x={x} y={s_y} key={j + '-bottom'} />,
+      );
     }
   }
 
   // Then applying protocols
 
   // Exit gate
-  grid.push(
+  grid.set(
+    [protocol.exit[0], protocol.exit[1]],
     <Wall type="exit" x={protocol.exit[0]} y={protocol.exit[1]} key={'exit'} />,
   );
 
-  // Player start position
-  grid.push(
+  // Player
+  grid.set(
+    [playerPosition[0], playerPosition[1]],
     <Player
-      x={protocol.playerStart[0]}
-      y={protocol.playerStart[1]}
+      x={playerPositionDeferred[0]}
+      y={playerPositionDeferred[1]}
       orientation={playerOrientation}
       key="player"
     />,
@@ -101,7 +137,8 @@ export default function Grid({protocol}: IProps) {
   protocol.walls
     .filter(w => !continueIfRemoved(w))
     .forEach((wall, i) =>
-      grid.push(
+      grid.set(
+        [wall.position[0], wall.position[1]],
         <Wall
           x={wall.position[0]}
           y={wall.position[1]}
@@ -124,7 +161,7 @@ export default function Grid({protocol}: IProps) {
         left: 0,
       }}
       {...panResponderRef.panHandlers}>
-      {grid}
+      {[...grid.values()]}
     </View>
   );
 }
