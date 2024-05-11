@@ -1,6 +1,7 @@
-import React, {useMemo} from 'react';
+import React, {useEffect, useLayoutEffect, useMemo, useRef} from 'react';
 import usePlacementBuilder from '../engine/usePlacementBuilder';
-import {Image} from 'react-native';
+import {Animated, Image} from 'react-native';
+import usePanResponder from '../devices/usePanResponder';
 
 export type PlayerOrientation = 'top' | 'bottom' | 'left' | 'right';
 
@@ -12,10 +13,27 @@ interface IProps {
 
 export default function Player({x, y, orientation}: IProps) {
   const {getPositionStyle} = usePlacementBuilder();
+  const pos = getPositionStyle(x, y).position;
+  const movementAnim = useRef<Animated.ValueXY>(
+    new Animated.ValueXY({
+      x: pos.left,
+      y: pos.top,
+    }),
+  );
+
+  useEffect(() => {
+    Animated.timing(movementAnim.current, {
+      toValue: new Animated.ValueXY({
+        x: pos.left,
+        y: pos.top,
+      }),
+      duration: 1000,
+      useNativeDriver: false,
+    }).start();
+  }, [x, y]);
 
   const render = useMemo<JSX.Element>(() => {
     let path;
-    const pos = getPositionStyle(x, y).position;
     switch (orientation) {
       case 'top':
         path = require('../../assets/player_top.png');
@@ -31,13 +49,13 @@ export default function Player({x, y, orientation}: IProps) {
         break;
     }
     return (
-      <Image
+      <Animated.Image
         source={path}
         alt={'player'}
         style={{
           position: 'absolute',
-          left: pos.left,
-          top: pos.top,
+          left: movementAnim.current.x,
+          top: movementAnim.current.y,
         }}
       />
     );
