@@ -1,7 +1,6 @@
-import React, {useEffect, useLayoutEffect, useMemo, useRef} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 import usePlacementBuilder from '../engine/usePlacementBuilder';
-import {Animated, Image} from 'react-native';
-import usePanResponder from '../devices/usePanResponder';
+import {Animated} from 'react-native';
 
 export type PlayerOrientation = 'top' | 'bottom' | 'left' | 'right';
 

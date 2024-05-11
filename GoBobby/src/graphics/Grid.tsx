@@ -39,11 +39,25 @@ export default function Grid({protocol}: IProps) {
     setPlayerPosition(playerPosition => {
       let newValue = playerPosition;
       const walls = [...grid.entries()]
-        .filter(e => e[1].type.prototype === Wall.prototype)
+        .filter(
+          e =>
+            e[1].type.prototype === Wall.prototype &&
+            e[1].props.type !== 'exit',
+        )
         .map(e => e[0]);
+      const exitGate = [...grid.entries()]
+        .filter(
+          e =>
+            e[1].type.prototype === Wall.prototype &&
+            e[1].props.type === 'exit',
+        )
+        // should throw an error if not found so this is nice
+        .map(e => e[0])[0];
       const isStucked = (
         callback: (first: GamePosition, other: GamePosition) => boolean,
-      ) => walls.some(pos => compareGamePositions(pos, newValue, callback));
+      ) =>
+        walls.some(pos => compareGamePositions(pos, newValue, callback)) ||
+        compareGamePositions(exitGate, newValue);
       switch (playerOrientation) {
         case 'right':
           for (

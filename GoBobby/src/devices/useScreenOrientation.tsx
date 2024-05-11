@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import useEffectAsync from '../utils/useEffectAsync';
 
