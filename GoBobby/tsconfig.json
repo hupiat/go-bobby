@@ -9,7 +9,6 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    // "downlevelIteration": true,
     "strict": true
   }
 }
