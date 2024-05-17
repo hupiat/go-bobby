@@ -1,4 +1,9 @@
-import React, {useDeferredValue, useState} from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useDeferredValue,
+  useState,
+} from 'react';
 import usePlacementBuilder, {
   compareGamePositions,
 } from '../engine/usePlacementBuilder';
@@ -8,19 +13,21 @@ import {
   IGridProtocol,
   WallProtocol,
 } from '../engine/IGridProtocol';
-import {View} from 'react-native';
-import Player, {PlayerOrientation} from './Player';
+import {Vibration, View} from 'react-native';
+import Player, {PLAYER_MOVEMENT_DURATION, PlayerOrientation} from './Player';
 import usePanResponder from '../devices/usePanResponder';
+import {WorkflowStep} from '../engine/WorkflowStep';
 
 const HUD_SHIFT = 2;
 
 interface IProps {
   protocol: IGridProtocol;
+  setWorkflowStep: Dispatch<SetStateAction<WorkflowStep>>;
 }
 
 // Each element should be memoized by itself (responsability principle)
 
-export default function Grid({protocol}: IProps) {
+export default function Grid({protocol, setWorkflowStep}: IProps) {
   const grid = new Map<GamePosition, JSX.Element>();
 
   const [playerOrientation, setPlayerOrientation] =
@@ -95,6 +102,11 @@ export default function Grid({protocol}: IProps) {
             newValue = [newValue[0], newValue[1] + 1];
           }
           break;
+      }
+      if (compareGamePositions(exitGate, newValue)) {
+        setWorkflowStep('won');
+      } else {
+        setTimeout(Vibration.vibrate, PLAYER_MOVEMENT_DURATION);
       }
       return newValue;
     });

@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 import {PanResponder} from 'react-native';
-import {PlayerOrientation} from '../graphics/Player';
+import {PLAYER_MOVEMENT_DURATION, PlayerOrientation} from '../graphics/Player';
 
 const MOVE_GESTURE_TOLERANCY = 50;
 
@@ -22,7 +22,13 @@ export default function usePanResponder(suscriber: PanResponderSuscriber) {
     if (orientationDeferred) {
       suscriber(orientationDeferred);
     }
-    return () => setOrientation(null);
+    return () => {
+      setTimeout(() => {
+        if (orientationDeferred !== orientation) {
+          setOrientation(null);
+        }
+      }, PLAYER_MOVEMENT_DURATION);
+    };
   }, [orientationDeferred]);
 
   return useRef(
