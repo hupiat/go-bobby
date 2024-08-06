@@ -41,6 +41,7 @@ function App(): React.JSX.Element {
         walls: [],
         exit: [15, 10],
       }}
+      setWorkflowStep={setPlayerStep}
     />
   );
 }
