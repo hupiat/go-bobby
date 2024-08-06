@@ -102,11 +102,14 @@ export default function Grid({protocol, setWorkflowStep}: IProps) {
           }
           break;
       }
-      if (compareGamePositions(exitGate, newValue)) {
-        setWorkflowStep('won');
-      } else {
-        setTimeout(Vibration.vibrate, PLAYER_MOVEMENT_DURATION);
-      }
+      setTimeout(() => {
+        if (compareGamePositions(exitGate, newValue)) {
+          setWorkflowStep('won');
+        } else {
+          Vibration.vibrate();
+        }
+      }, PLAYER_MOVEMENT_DURATION);
+      
       return newValue;
     });
   });

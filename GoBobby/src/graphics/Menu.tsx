@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react"
+import React, { Dispatch, SetStateAction, useTransition } from "react"
 import { Button, SafeAreaView } from "react-native"
 import { WorkflowStep } from "../engine/WorkflowStep";
 
@@ -7,7 +7,7 @@ interface IProps {
 }
 
 export default function Menu({ setWorkflowStep }: IProps) {
-
+    const [, startTransition] = useTransition();
     return (
         <SafeAreaView
             style={{
@@ -17,7 +17,7 @@ export default function Menu({ setWorkflowStep }: IProps) {
             flexDirection: 'column',
             justifyContent: 'center',
             }}>
-            <Button title="Play" onPress={() => setWorkflowStep('playing')} />
+            <Button title="Play" onPress={() => startTransition(() => setWorkflowStep('playing'))} />
       </SafeAreaView>
     )
 }
