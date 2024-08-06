@@ -6,6 +6,7 @@ import React, {
 } from 'react';
 import usePlacementBuilder, {
   compareGamePositions,
+  HUD_SHIFT,
 } from '../engine/usePlacementBuilder';
 import Wall from './Wall';
 import {
@@ -13,12 +14,10 @@ import {
   IGridProtocol,
   WallProtocol,
 } from '../engine/IGridProtocol';
-import {Vibration, View} from 'react-native';
+import {SafeAreaView, Vibration, View} from 'react-native';
 import Player, {PLAYER_MOVEMENT_DURATION, PlayerOrientation} from './Player';
 import usePanResponder from '../devices/usePanResponder';
 import {WorkflowStep} from '../engine/WorkflowStep';
-
-const HUD_SHIFT = 2;
 
 interface IProps {
   protocol: IGridProtocol;
@@ -42,7 +41,7 @@ export default function Grid({protocol, setWorkflowStep}: IProps) {
   const panResponderRef = usePanResponder(playerOrientation => {
     // This one is deferred internally (player orientation)
     setPlayerOrientation(playerOrientation);
-    // Not this one (player position)
+    // Not this one (player position is delegate to this class tho)
     setPlayerPosition(playerPosition => {
       let newValue = playerPosition;
       const walls = [...grid.entries()]
@@ -119,9 +118,9 @@ export default function Grid({protocol, setWorkflowStep}: IProps) {
   // Building grid
 
   // Displaying base grid (blocking gates)
-  // Could be partially complete
+  // Which be partially complete
 
-  for (let i = HUD_SHIFT; i < verticalSpaces; i++) {
+  for (let i = 0; i < verticalSpaces; i++) {
     const f_x = 0;
     const s_x = horizontalSpaces - 1;
     const y = i;
@@ -150,7 +149,7 @@ export default function Grid({protocol, setWorkflowStep}: IProps) {
   }
   for (let j = 1; j < horizontalSpaces; j++) {
     const x = j;
-    const f_y = HUD_SHIFT;
+    const f_y = 0;
     const s_y = verticalSpaces - 1;
 
     // Top line
@@ -211,19 +210,19 @@ export default function Grid({protocol, setWorkflowStep}: IProps) {
     );
 
   return (
-    <View
+    <SafeAreaView
       style={{
-        height: '100%',
+        height: 'auto',
         width: '100%',
         backgroundColor: 'grey',
         position: 'absolute',
         right: 0,
         bottom: 0,
-        top: 0,
+        top: HUD_SHIFT,
         left: 0,
       }}
       {...panResponderRef.panHandlers}>
       {[...grid.values()]}
-    </View>
+    </SafeAreaView>
   );
 }

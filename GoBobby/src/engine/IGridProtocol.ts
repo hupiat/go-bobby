@@ -12,3 +12,10 @@ export interface IGridProtocol {
   playerStart: GamePosition;
   exit: GamePosition;
 }
+
+export const LEVELS: IGridProtocol[] = [{
+  playerStart: [10, 10],
+  removed: [],
+  walls: [],
+  exit: [15, 10],
+}]

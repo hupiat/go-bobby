@@ -13,6 +13,8 @@ interface IPlacementBuilder {
   ) => {position: {top: number; left: number}};
 }
 
+export const HUD_SHIFT = 33;
+
 export default function usePlacementBuilder(): IPlacementBuilder {
   const {deviceHeightPx, deviceWidthPx, gameElementPx} = useGameSizer();
   const orientation = useScreenOrientation();
@@ -23,7 +25,7 @@ export default function usePlacementBuilder(): IPlacementBuilder {
     [deviceWidthPx, gameElementPx],
   );
   const verticalSpaces = useMemo<number>(
-    () => Math.round(deviceHeightPx / gameElementPx),
+    () => Math.round((deviceHeightPx - HUD_SHIFT) / gameElementPx),
     [deviceHeightPx, gameElementPx],
   );
 
