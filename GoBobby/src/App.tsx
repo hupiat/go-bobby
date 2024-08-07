@@ -12,7 +12,7 @@ import {WorkflowStep} from './engine/WorkflowStep';
 import Grid from './graphics/Grid';
 import { LEVELS } from './engine/IGridProtocol';
 import Menu from './graphics/Menu';
-import { StatusBar } from 'react-native';
+import { ActivityIndicator, SafeAreaView, StatusBar } from 'react-native';
 import HUD from './graphics/HUD';
 import { getStorageKey } from './devices/utils';
 
@@ -31,7 +31,8 @@ function App(): React.JSX.Element {
 
   useLayoutEffect(() => {
     switch (playerStep) {
-      case "restarting": // TODO
+      case "restarting":
+        setTimeout(() => setPlayerStep("playing"), 500);
         break;
       case "won":
         setPlayerLevel (playerLevel => {
@@ -47,6 +48,15 @@ function App(): React.JSX.Element {
   return playerStep === 'menu' ? (
       <Menu setWorkflowStep={setPlayerStep} />
     ) : (
+      playerStep === "restarting" ? 
+        <SafeAreaView style={{
+          backgroundColor: "grey",
+          height: "100%"
+        }}>
+          <ActivityIndicator size={"large"} style={{
+            marginTop: "20%"
+          }} />
+        </SafeAreaView> : 
       <>
         <StatusBar hidden /> 
         <HUD setWorkflowStep={setPlayerStep} level={playerLevel + 1} />
