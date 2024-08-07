@@ -29,8 +29,10 @@ export default function HUD({ setWorkflowStep, level } : IProps) {
                 <Icon name="retweet" size={ICON_SIZE} color={ICON_COLOR}/>
             </CustomButton>    
             <CustomButton onPress={() => startTransition(() => setWorkflowStep("levels_menu"))}>
+                <Icon name="profile" size={ICON_SIZE} color={ICON_COLOR}/>
                 <Text style={{
-                    color: ICON_COLOR
+                    color: ICON_COLOR,
+                    marginLeft: 10
                 }}>{level}</Text>
             </CustomButton>  
         </SafeAreaView> 

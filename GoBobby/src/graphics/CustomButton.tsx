@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { TouchableHighlight, View } from "react-native";
+import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 
 interface IProps {
     onPress: () => void;
@@ -8,7 +8,7 @@ interface IProps {
 export default function CustomButton({ onPress, children }: PropsWithChildren<IProps>) {
 
     return (
-       <TouchableHighlight onPress={onPress} >
+       <TouchableOpacity onPress={onPress} >
         <View style={{
             backgroundColor: "#1E88E5",
             padding: "5%",
@@ -20,6 +20,6 @@ export default function CustomButton({ onPress, children }: PropsWithChildren<IP
         }}> 
             {children}
         </View>
-       </TouchableHighlight> 
+       </TouchableOpacity> 
     )
 }
