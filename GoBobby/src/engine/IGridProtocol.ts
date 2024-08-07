@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import {WallType} from '../graphics/Wall';
 
 export type GamePosition = [number, number];
@@ -13,7 +14,7 @@ export interface IGridProtocol {
   exit: GamePosition;
 }
 
-export const LEVELS: IGridProtocol[] = [{
+export const useLevels: () => IGridProtocol[] = () => useMemo(() => [{
   // 1
   playerStart: [10, 10],
   removed: [],
@@ -32,4 +33,43 @@ export const LEVELS: IGridProtocol[] = [{
     type: "brick"
   }],
   exit: [17, 12],
-}]
+},
+{
+  // 3
+  playerStart: [5, 3],
+  removed: [],
+  walls: [{
+    position: [6, 1],
+    type: "brick"
+  }, {
+    position: [6, 2],
+    type: "brick"
+  }, {
+    position: [6, 3],
+    type: "brick"
+  }, {
+    position: [1, 7],
+    type: "brick"
+  }],
+  exit: [19, 6],
+},
+{
+  // 4
+  playerStart: [7, 6],
+  removed: [],
+  walls: [{
+    position: [6, 1],
+    type: "brick"
+  }, {
+    position: [6, 2],
+    type: "brick"
+  }, {
+    position: [6, 10],
+    type: "brick"
+  }, {
+    position: [1, 7],
+    type: "brick"
+  }],
+  exit: [19, 6],
+}
+], []);

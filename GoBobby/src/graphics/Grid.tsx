@@ -2,6 +2,7 @@ import React, {
   Dispatch,
   SetStateAction,
   useDeferredValue,
+  useEffect,
   useState,
 } from 'react';
 import usePlacementBuilder, {
@@ -35,6 +36,10 @@ export default function Grid({protocol, setWorkflowStep}: IProps) {
     protocol.playerStart,
   );
   const playerPositionDeferred = useDeferredValue(playerPosition);
+
+  useEffect(() => {
+    setPlayerPosition(protocol.playerStart);
+  }, [protocol]);
 
   // Moving player callback
 
