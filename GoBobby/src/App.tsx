@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useDeferredValue, useLayoutEffect, useState} from 'react';
 
 import useScreenOrientation from './devices/useScreenOrientation';
 import {WorkflowStep} from './engine/WorkflowStep';
@@ -23,6 +23,8 @@ function App(): React.JSX.Element {
 
   const [playerLevel, setPlayerLevel] = useState<number>(levelStored ? Number(levelStored) : 0);
   const [playerStep, setPlayerStep] = useState<WorkflowStep>('menu');
+
+  const deferredLevel = useDeferredValue(LEVELS[playerLevel]);
 
   // Need to keep this to lock screen orientation internally
   useScreenOrientation();
@@ -49,7 +51,7 @@ function App(): React.JSX.Element {
         <StatusBar hidden /> 
         <HUD setWorkflowStep={setPlayerStep} level={playerLevel + 1} />
         <Grid
-          protocol={LEVELS[playerLevel]}
+          protocol={deferredLevel}
           setWorkflowStep={setPlayerStep}
         />
       </>

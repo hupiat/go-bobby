@@ -1,11 +1,16 @@
 import React, { Dispatch, SetStateAction, useTransition } from "react"
-import { Button, SafeAreaView, Text } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
+import Icon from "react-native-vector-icons/AntDesign"
 import { WorkflowStep } from "../engine/WorkflowStep";
+import CustomButton from "./CustomButton";
 
 interface IProps {
     level: number;
     setWorkflowStep: Dispatch<SetStateAction<WorkflowStep>>;
 }
+
+const ICON_SIZE = 20;
+const ICON_COLOR = "white";
 
 export default function HUD({ setWorkflowStep, level } : IProps) {
     const [, startTransition] = useTransition();
@@ -15,11 +20,19 @@ export default function HUD({ setWorkflowStep, level } : IProps) {
             backgroundColor: "grey",
             flexDirection: "row",
             justifyContent: "space-around",
-            height: "50%"
+            height: "100%"
         }}>
-            <Button title="menu" onPress={() => startTransition(() => setWorkflowStep("menu"))} />    
-            <Button title="restart" onPress={() => startTransition(() => setWorkflowStep("restarting"))} />  
-            <Button title={"Level : " + level} onPress={() => startTransition(() => setWorkflowStep("levels_menu"))} />  
-        </SafeAreaView>
+            <CustomButton onPress={() => startTransition(() => setWorkflowStep("menu"))}>
+                <Icon name="menufold" size={ICON_SIZE} color={ICON_COLOR}/>
+            </CustomButton>    
+            <CustomButton onPress={() => startTransition(() => setWorkflowStep("restarting"))}>
+                <Icon name="retweet" size={ICON_SIZE} color={ICON_COLOR}/>
+            </CustomButton>    
+            <CustomButton onPress={() => startTransition(() => setWorkflowStep("levels_menu"))}>
+                <Text style={{
+                    color: ICON_COLOR
+                }}>{level}</Text>
+            </CustomButton>  
+        </SafeAreaView> 
     );
 }

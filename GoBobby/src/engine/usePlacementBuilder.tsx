@@ -13,13 +13,13 @@ interface IPlacementBuilder {
   ) => {position: {top: number; left: number}};
 }
 
-export const HUD_SHIFT = 33;
+export const HUD_SHIFT = 50;
 export const LEFT_MARGIN_SHIFT = 3;
 export const BOTTOM_MARGIN_SHIFT = 10;
 
 export default function usePlacementBuilder(): IPlacementBuilder {
   const {deviceHeightPx, deviceWidthPx, gameElementPx} = useGameSizer();
-  const orientation = useScreenOrientation();
+  const orientation = useScreenOrientation()
 
   // Landscape mode
   const horizontalSpaces = useMemo<number>(
