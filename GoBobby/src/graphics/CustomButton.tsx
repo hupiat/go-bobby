@@ -11,7 +11,8 @@ export default function CustomButton({ onPress, children }: PropsWithChildren<IP
        <TouchableOpacity onPress={onPress} >
         <View style={{
             backgroundColor: "#1E88E5",
-            padding: "5%",
+            paddingHorizontal: "5%",
+            paddingVertical: 5,
             display: "flex",
             flexDirection: "row",
             justifyContent: "center",
