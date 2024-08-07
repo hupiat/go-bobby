@@ -14,8 +14,8 @@ import {
   IGridProtocol,
   WallProtocol,
 } from '../engine/IGridProtocol';
-import {SafeAreaView, Vibration, View} from 'react-native';
-import Player, {PLAYER_MOVEMENT_DURATION, PlayerOrientation} from './Player';
+import {SafeAreaView, Vibration} from 'react-native';
+import Player, {PLAYER_MOVEMENT_DURATION_MS, PlayerOrientation} from './Player';
 import usePanResponder from '../devices/usePanResponder';
 import {WorkflowStep} from '../engine/WorkflowStep';
 
@@ -108,8 +108,8 @@ export default function Grid({protocol, setWorkflowStep}: IProps) {
         } else {
           Vibration.vibrate();
         }
-      }, PLAYER_MOVEMENT_DURATION);
-      
+      }, PLAYER_MOVEMENT_DURATION_MS);
+
       return newValue;
     });
   });
@@ -121,7 +121,7 @@ export default function Grid({protocol, setWorkflowStep}: IProps) {
   // Building grid
 
   // Displaying base grid (blocking gates)
-  // Which be partially complete
+  // Which can be partially complete
 
   for (let i = 0; i < verticalSpaces; i++) {
     const f_x = 0;

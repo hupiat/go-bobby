@@ -1,1 +1,1 @@
-export type WorkflowStep = 'menu' | 'playing' | 'won' | 'restarting';
+export type WorkflowStep = 'menu' | 'levels_menu' | 'playing' | 'won' | 'restarting';

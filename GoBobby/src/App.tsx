@@ -5,18 +5,23 @@
  * @format
  */
 
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 
 import useScreenOrientation from './devices/useScreenOrientation';
 import {WorkflowStep} from './engine/WorkflowStep';
 import Grid from './graphics/Grid';
-import { IGridProtocol, LEVELS } from './engine/IGridProtocol';
+import { LEVELS } from './engine/IGridProtocol';
 import Menu from './graphics/Menu';
 import { StatusBar } from 'react-native';
 import HUD from './graphics/HUD';
+import { getStorageKey } from './devices/utils';
+
+const MAX_LEVEL_KEY = getStorageKey("levelMax");
 
 function App(): React.JSX.Element {
-  const [playerLevel, setPlayerLevel] = useState<number>(0);
+  const levelStored = 0 // localStorage.getItem(MAX_LEVEL_KEY);
+
+  const [playerLevel, setPlayerLevel] = useState<number>(levelStored ? Number(levelStored) : 0);
   const [playerStep, setPlayerStep] = useState<WorkflowStep>('menu');
 
   // Need to keep this to lock screen orientation internally
@@ -25,8 +30,15 @@ function App(): React.JSX.Element {
   useLayoutEffect(() => {
     switch (playerStep) {
       case "restarting": // TODO
+        break;
       case "won":
-        setPlayerLevel (playerLevel => playerLevel + 1);
+        setPlayerLevel (playerLevel => {
+          if (levelStored && Number(levelStored) < playerLevel + 1) {
+           // localStorage.setItem(MAX_LEVEL_KEY, String(playerLevel + 1));
+          }
+          return playerLevel + 1;
+        });
+        break;
     }
   }, [playerStep]);
 
@@ -35,7 +47,7 @@ function App(): React.JSX.Element {
     ) : (
       <>
         <StatusBar hidden /> 
-        <HUD setWorkflowStep={setPlayerStep} />
+        <HUD setWorkflowStep={setPlayerStep} level={playerLevel + 1} />
         <Grid
           protocol={LEVELS[playerLevel]}
           setWorkflowStep={setPlayerStep}

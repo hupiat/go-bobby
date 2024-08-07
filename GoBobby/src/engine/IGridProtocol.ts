@@ -31,5 +31,5 @@ export const LEVELS: IGridProtocol[] = [{
     position: [12, 12],
     type: "brick"
   }],
-  exit: [17, 10],
+  exit: [17, 14],
 }]

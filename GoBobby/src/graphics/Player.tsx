@@ -4,7 +4,7 @@ import {Animated} from 'react-native';
 
 export type PlayerOrientation = 'top' | 'bottom' | 'left' | 'right';
 
-export const PLAYER_MOVEMENT_DURATION = 1000;
+export const PLAYER_MOVEMENT_DURATION_MS = 500;
 
 interface IProps {
   x: number;
@@ -28,7 +28,7 @@ export default function Player({x, y, orientation}: IProps) {
         x: pos.left,
         y: pos.top,
       }),
-      duration: PLAYER_MOVEMENT_DURATION,
+      duration: PLAYER_MOVEMENT_DURATION_MS,
       useNativeDriver: false,
     }).start();
   }, [x, y]);

@@ -1,0 +1,1 @@
+export const getStorageKey = (key: string) => "@GoBobbyStore:" + key;
