@@ -5,12 +5,13 @@ import MenuLevels from "./MenuLevels";
 import CustomButton from "./CustomButton";
 
 interface IProps {
+    numberOfLevels: number;
     workflowStep: WorkflowStep;
     setWorkflowStep: Dispatch<SetStateAction<WorkflowStep>>;
     setPlayerLevel: Dispatch<SetStateAction<number>>;
 }
 
-export default function Menu({ workflowStep, setWorkflowStep, setPlayerLevel }: IProps) {
+export default function Menu({ workflowStep, setWorkflowStep, setPlayerLevel, numberOfLevels }: IProps) {
     const [, startTransition] = useTransition();
     return (
         <SafeAreaView
@@ -24,7 +25,7 @@ export default function Menu({ workflowStep, setWorkflowStep, setPlayerLevel }: 
             }}>
             {
                 workflowStep === "levels_menu" ? 
-                    <MenuLevels setWorkflowStep={setWorkflowStep} setPlayerLevel={setPlayerLevel} /> : 
+                    <MenuLevels setWorkflowStep={setWorkflowStep} setPlayerLevel={setPlayerLevel} numberOfLevels={numberOfLevels} /> : 
                     <View style={{
                         alignSelf: "center",
                         justifyContent: "space-around",

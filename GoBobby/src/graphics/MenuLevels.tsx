@@ -1,18 +1,18 @@
 import React, { Dispatch, SetStateAction } from "react";
 import HUD from "./HUD";
 import { WorkflowStep } from "../engine/WorkflowStep";
-import { LEVELS } from "../engine/IGridProtocol";
 import { Button, FlatList } from "react-native";
 
 interface IProps {
+    numberOfLevels: number;
     setWorkflowStep: Dispatch<SetStateAction<WorkflowStep>>;
     setPlayerLevel: Dispatch<SetStateAction<number>>;
 }
 
-export default function MenuLevels({ setWorkflowStep, setPlayerLevel }: IProps) {
+export default function MenuLevels({ setWorkflowStep, setPlayerLevel, numberOfLevels }: IProps) {
     const buttonsData = []
 
-    for (let i = 0; i < LEVELS.length; i++) {
+    for (let i = 0; i < numberOfLevels; i++) {
         buttonsData.push({
             id: i,
             title: i

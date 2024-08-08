@@ -5,16 +5,16 @@
  * @format
  */
 
-import React, {useDeferredValue, useLayoutEffect, useState} from 'react';
+import React, { useEffect, useLayoutEffect, useState} from 'react';
 
 import useScreenOrientation from './devices/useScreenOrientation';
 import {WorkflowStep} from './engine/WorkflowStep';
 import Grid from './graphics/Grid';
-import { LEVELS } from './engine/IGridProtocol';
 import Menu from './graphics/Menu';
 import { ActivityIndicator, SafeAreaView, StatusBar } from 'react-native';
 import HUD from './graphics/HUD';
 import { getStorageKey } from './devices/utils';
+import * as LEVELS from '../sliding_levels.json';
 
 const MAX_LEVEL_KEY = getStorageKey("levelMax");
 
@@ -45,7 +45,7 @@ function App(): React.JSX.Element {
   }, [playerStep]);
 
   return playerStep === 'menu' || playerStep === "levels_menu" ? (
-      <Menu setWorkflowStep={setPlayerStep} workflowStep={playerStep} setPlayerLevel={setPlayerLevel} />
+      <Menu setWorkflowStep={setPlayerStep} workflowStep={playerStep} setPlayerLevel={setPlayerLevel} numberOfLevels={50} />
     ) : (
       playerStep === "restarting" ? 
         <SafeAreaView style={{
@@ -60,7 +60,7 @@ function App(): React.JSX.Element {
         <StatusBar hidden /> 
         <HUD setWorkflowStep={setPlayerStep} level={playerLevel + 1} />
         <Grid
-          protocol={LEVELS[playerLevel]}
+          protocol={(LEVELS as [])[playerLevel]}
           setWorkflowStep={setPlayerStep}
         />
       </>
