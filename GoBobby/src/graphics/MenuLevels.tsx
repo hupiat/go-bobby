@@ -21,11 +21,11 @@ export default function MenuLevels({ setWorkflowStep, setPlayerLevel, numberOfLe
 
     return (
         <>
-        <HUD setWorkflowStep={setWorkflowStep} />
-        <FlatList data={buttonsData} renderItem={item => <Button title={String(item.index + 1)} onPress={() => {
-            setWorkflowStep("playing");
-            setPlayerLevel(item.index);
-        }} />} keyExtractor={item =>String(item.id)} />
+            <HUD setWorkflowStep={setWorkflowStep} />
+            <FlatList data={buttonsData} renderItem={item => <Button title={String(item.index + 1)} onPress={() => {
+                setWorkflowStep("playing");
+                setPlayerLevel(item.index);
+            }} />} keyExtractor={item =>String(item.id)} />
         </>
     );
 }

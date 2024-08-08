@@ -1,6 +1,7 @@
 import React, {useEffect, useMemo, useRef} from 'react';
 import usePlacementBuilder from '../engine/usePlacementBuilder';
 import {Animated} from 'react-native';
+import { WorkflowStep } from '../engine/WorkflowStep';
 
 export type PlayerOrientation = 'top' | 'bottom' | 'left' | 'right';
 
@@ -10,9 +11,10 @@ interface IProps {
   x: number;
   y: number;
   orientation: PlayerOrientation;
+  workflowPlayerStep: WorkflowStep;
 }
 
-export default function Player({x, y, orientation}: IProps) {
+export default function Player({x, y, orientation, workflowPlayerStep}: IProps) {
   const {getPositionStyle} = usePlacementBuilder();
   const pos = getPositionStyle(x, y).position;
   const movementAnim = useRef<Animated.ValueXY>(
@@ -23,14 +25,16 @@ export default function Player({x, y, orientation}: IProps) {
   );
 
   useEffect(() => {
-    Animated.timing(movementAnim.current, {
-      toValue: new Animated.ValueXY({
-        x: pos.left,
-        y: pos.top,
-      }),
-      duration: PLAYER_MOVEMENT_DURATION_MS,
-      useNativeDriver: false,
-    }).start();
+    if (workflowPlayerStep == "playing") {
+      Animated.timing(movementAnim.current, {
+        toValue: new Animated.ValueXY({
+          x: pos.left,
+          y: pos.top,
+        }),
+        duration: PLAYER_MOVEMENT_DURATION_MS,
+        useNativeDriver: false,
+      }).start();
+    }
   }, [x, y]);
 
   const render = useMemo<JSX.Element>(() => {
