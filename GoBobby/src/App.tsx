@@ -45,7 +45,7 @@ function App(): React.JSX.Element {
   }, [playerStep]);
 
   return playerStep === 'menu' || playerStep === "levels_menu" ? (
-      <Menu setWorkflowStep={setPlayerStep} workflowStep={playerStep} />
+      <Menu setWorkflowStep={setPlayerStep} workflowStep={playerStep} setPlayerLevel={setPlayerLevel} />
     ) : (
       playerStep === "restarting" ? 
         <SafeAreaView style={{
