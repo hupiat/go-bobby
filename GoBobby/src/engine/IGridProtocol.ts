@@ -8,21 +8,20 @@ export type WallProtocol = {
 };
 
 export interface IGridProtocol {
+  readonly name?: string;
   walls: WallProtocol[];
   removed: WallProtocol[];
   playerStart: GamePosition;
   exit: GamePosition;
 }
 
-export const useLevels: () => IGridProtocol[] = () => useMemo(() => [{
-  // 1
+export const LEVELS: IGridProtocol[] = [{
   playerStart: [10, 10],
   removed: [],
   walls: [],
   exit: [15, 10],
 },
 {
-  // 2
   playerStart: [10, 10],
   removed: [],
   walls: [{
@@ -35,7 +34,6 @@ export const useLevels: () => IGridProtocol[] = () => useMemo(() => [{
   exit: [17, 12],
 },
 {
-  // 3
   playerStart: [5, 3],
   removed: [],
   walls: [{
@@ -54,7 +52,6 @@ export const useLevels: () => IGridProtocol[] = () => useMemo(() => [{
   exit: [19, 6],
 },
 {
-  // 4
   playerStart: [7, 6],
   removed: [],
   walls: [{
@@ -71,5 +68,5 @@ export const useLevels: () => IGridProtocol[] = () => useMemo(() => [{
     type: "brick"
   }],
   exit: [19, 6],
-}
-], []);
+}, 
+];
