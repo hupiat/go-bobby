@@ -10,7 +10,7 @@ import React, {useDeferredValue, useLayoutEffect, useState} from 'react';
 import useScreenOrientation from './devices/useScreenOrientation';
 import {WorkflowStep} from './engine/WorkflowStep';
 import Grid from './graphics/Grid';
-import { useLevels } from './engine/IGridProtocol';
+import { LEVELS } from './engine/IGridProtocol';
 import Menu from './graphics/Menu';
 import { ActivityIndicator, SafeAreaView, StatusBar } from 'react-native';
 import HUD from './graphics/HUD';
@@ -23,9 +23,6 @@ function App(): React.JSX.Element {
 
   const [playerLevel, setPlayerLevel] = useState<number>(levelStored ? Number(levelStored) : 0);
   const [playerStep, setPlayerStep] = useState<WorkflowStep>('menu');
-  const LEVELS = useLevels();
-
-  const deferredLevel = useDeferredValue(LEVELS[playerLevel]);
 
   // Need to keep this to lock screen orientation internally
   useScreenOrientation();
@@ -63,7 +60,7 @@ function App(): React.JSX.Element {
         <StatusBar hidden /> 
         <HUD setWorkflowStep={setPlayerStep} level={playerLevel + 1} />
         <Grid
-          protocol={deferredLevel}
+          protocol={LEVELS[playerLevel]}
           setWorkflowStep={setPlayerStep}
         />
       </>

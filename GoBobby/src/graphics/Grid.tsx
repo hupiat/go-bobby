@@ -205,6 +205,7 @@ export default function Grid({protocol, setWorkflowStep}: IProps) {
   // Post-processing walls
   protocol.walls
     .filter(w => !continueIfRemoved(w))
+    .filter(w => ! compareGamePositions(w.position, protocol.exit))
     .forEach((wall, i) =>
       grid.set(
         [wall.position[0], wall.position[1]],
