@@ -14,7 +14,7 @@ import Menu from './graphics/Menu';
 import { ActivityIndicator, SafeAreaView, StatusBar } from 'react-native';
 import HUD from './graphics/HUD';
 import { getStorageKey } from './devices/utils';
-import * as LEVELS from '../sliding_levels.json';
+import * as LEVELS from '../50_logical_levels.json';
 
 const MAX_LEVEL_KEY = getStorageKey("levelMax");
 
