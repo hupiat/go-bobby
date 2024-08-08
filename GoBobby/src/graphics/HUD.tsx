@@ -5,7 +5,7 @@ import { WorkflowStep } from "../engine/WorkflowStep";
 import CustomButton from "./CustomButton";
 
 interface IProps {
-    level: number;
+    level?: number;
     setWorkflowStep: Dispatch<SetStateAction<WorkflowStep>>;
 }
 
@@ -25,16 +25,21 @@ export default function HUD({ setWorkflowStep, level } : IProps) {
             <CustomButton onPress={() => startTransition(() => setWorkflowStep("menu"))}>
                 <Icon name="menufold" size={ICON_SIZE} color={ICON_COLOR}/>
             </CustomButton>    
-            <CustomButton onPress={() => startTransition(() => setWorkflowStep("restarting"))}>
-                <Icon name="retweet" size={ICON_SIZE} color={ICON_COLOR}/>
-            </CustomButton>    
-            <CustomButton onPress={() => startTransition(() => setWorkflowStep("levels_menu"))}>
-                <Icon name="profile" size={ICON_SIZE} color={ICON_COLOR}/>
-                <Text style={{
-                    color: ICON_COLOR,
-                    marginLeft: 10
-                }}>{level}</Text>
-            </CustomButton>  
+            {
+                level !== undefined && 
+                    <>
+                        <CustomButton onPress={() => startTransition(() => setWorkflowStep("restarting"))}>
+                            <Icon name="retweet" size={ICON_SIZE} color={ICON_COLOR}/>
+                        </CustomButton>    
+                        <CustomButton onPress={() => startTransition(() => setWorkflowStep("levels_menu"))}>
+                            <Icon name="profile" size={ICON_SIZE} color={ICON_COLOR}/>
+                            <Text style={{
+                                color: ICON_COLOR,
+                                marginLeft: 10
+                            }}>{level}</Text>
+                        </CustomButton>  
+                    </>
+            }
         </SafeAreaView> 
     );
 }
