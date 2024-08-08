@@ -16,6 +16,7 @@ import HUD from './graphics/HUD';
 import { getStorageKey } from './devices/utils';
 import * as LEVELS from '../50_logical_levels.json';
 
+const SIZE_LEVELS_JSON = 50;
 const MAX_LEVEL_KEY = getStorageKey("levelMax");
 
 function App(): React.JSX.Element {
@@ -45,7 +46,7 @@ function App(): React.JSX.Element {
   }, [playerStep]);
 
   return playerStep === 'menu' || playerStep === "levels_menu" ? (
-      <Menu setWorkflowStep={setPlayerStep} workflowStep={playerStep} setPlayerLevel={setPlayerLevel} numberOfLevels={50} />
+      <Menu setWorkflowStep={setPlayerStep} workflowStep={playerStep} setPlayerLevel={setPlayerLevel} numberOfLevels={SIZE_LEVELS_JSON} />
     ) : (
       playerStep === "restarting" ? 
         <SafeAreaView style={{
