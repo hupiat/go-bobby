@@ -62,6 +62,7 @@ function App(): React.JSX.Element {
         <HUD setWorkflowStep={setPlayerStep} level={playerLevel + 1} />
         <Grid
           protocol={(LEVELS as [])[playerLevel]}
+          workflowStep={playerStep}
           setWorkflowStep={setPlayerStep}
         />
       </>

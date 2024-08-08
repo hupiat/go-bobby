@@ -22,12 +22,13 @@ import {WorkflowStep} from '../engine/WorkflowStep';
 
 interface IProps {
   protocol: IGridProtocol;
+  workflowStep: WorkflowStep;
   setWorkflowStep: Dispatch<SetStateAction<WorkflowStep>>;
 }
 
 // Each element should be memoized by itself (responsability principle)
 
-export default function Grid({protocol, setWorkflowStep}: IProps) {
+export default function Grid({protocol, workflowStep, setWorkflowStep}: IProps) {
   const grid = new Map<GamePosition, JSX.Element>();
 
   const [playerOrientation, setPlayerOrientation] =
@@ -198,6 +199,7 @@ export default function Grid({protocol, setWorkflowStep}: IProps) {
       x={playerPositionDeferred[0]}
       y={playerPositionDeferred[1]}
       orientation={playerOrientation}
+      workflowPlayerStep={workflowStep}
       key="player"
     />,
   );
