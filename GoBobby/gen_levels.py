@@ -33,7 +33,7 @@ def place_wall_if_valid(grid, walls, x, y, width, height, start, end, level_numb
         else:
             grid[y][x] = '.'
 
-def generate_logical_levels(num_levels=50, width=31, height=14):
+def generate_logical_levels(num_levels=50, width=30, height=13):
     levels = []
 
     def create_level(level_number):

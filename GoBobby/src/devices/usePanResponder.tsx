@@ -24,9 +24,7 @@ export default function usePanResponder(suscriber: PanResponderSuscriber) {
     }
     return () => {
       setTimeout(() => {
-        if (orientationDeferred !== orientation) {
-          setOrientation(null);
-        }
+        setOrientation(null);
       }, PLAYER_MOVEMENT_DURATION_MS);
     };
   }, [orientationDeferred]);

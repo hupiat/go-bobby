@@ -3,6 +3,7 @@ import { Button, SafeAreaView, Text, View } from "react-native"
 import { WorkflowStep } from "../engine/WorkflowStep";
 import MenuLevels from "./MenuLevels";
 import CustomButton from "./CustomButton";
+import { Path, Svg } from "react-native-svg";
 
 interface IProps {
     numberOfLevels: number;
@@ -27,15 +28,21 @@ export default function Menu({ workflowStep, setWorkflowStep, setPlayerLevel, nu
                 workflowStep === "levels_menu" ? 
                     <MenuLevels setWorkflowStep={setWorkflowStep} setPlayerLevel={setPlayerLevel} numberOfLevels={numberOfLevels} /> : 
                     <View style={{
+                        display: "flex",
+                        flexDirection: "column",
                         alignSelf: "center",
                         justifyContent: "space-around",
-                        height: "50%"
+                        height: "70%"
                     }}>
+                        <Text style={{
+                            fontSize: 30,
+                            color: "white"
+                        }}>Go Bobby !</Text>
                         <CustomButton onPress={() => startTransition(() => setWorkflowStep('playing'))}>
-                            <Text style = {{ color: "white" }}>Play</Text>
+                            <Text style = {{ color: "white", margin: 10  }}>Play</Text>
                         </CustomButton>
                         <CustomButton onPress={() => startTransition(() => setWorkflowStep('levels_menu'))}>
-                            <Text style = {{ color: "white" }}>Levels</Text>
+                            <Text style = {{ color: "white", margin: 10 }}>Levels</Text>
                         </CustomButton>
                     </View>
             }

@@ -15,14 +15,14 @@ interface IProps {
 export default function Wall({type, x, y}: IProps) {
   const { gameElementPx } = useGameSizer();
   const {getPositionStyle} = usePlacementBuilder();
-  const fadeAnim = useRef<Animated.Value>(new Animated.Value(100));
+  const fadeAnim = useRef<Animated.Value>(new Animated.Value(1));
 
   useEffect(() => {
     return () => {
       Animated.timing(fadeAnim.current, {
         toValue: new Animated.Value(0),
         duration: 500,
-        useNativeDriver: false,
+        useNativeDriver: true,
       }).start();
     }
   }, []);
@@ -46,18 +46,22 @@ export default function Wall({type, x, y}: IProps) {
         break;
     }
     return (
-      <Svg
-        width={gameElementPx}
-        height={gameElementPx}
-        fill="none"
-        style={{
-          position: 'absolute',
-          left: pos.left,
-          top: pos.top,
-        }}
-      >
-      {path}
-    </Svg>
+      <Animated.View style={{
+        opacity: fadeAnim.current
+      }}>
+        <Svg
+          width={gameElementPx}
+          height={gameElementPx}
+          fill="none"
+          style={{
+            position: 'absolute',
+            left: pos.left,
+            top: pos.top,
+          }}
+        >
+        {path}
+      </Svg>
+    </Animated.View>
     );
   }, [type, x, y]);
 
