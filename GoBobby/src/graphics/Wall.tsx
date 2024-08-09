@@ -1,7 +1,8 @@
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 import usePlacementBuilder from '../engine/usePlacementBuilder';
 import { Path, Rect, Svg } from 'react-native-svg';
 import useGameSizer from './useGameSizer';
+import { Animated } from 'react-native';
 
 export type WallType = 'brick' | 'ice' | 'exit';
 
@@ -14,6 +15,17 @@ interface IProps {
 export default function Wall({type, x, y}: IProps) {
   const { gameElementPx } = useGameSizer();
   const {getPositionStyle} = usePlacementBuilder();
+  const fadeAnim = useRef<Animated.Value>(new Animated.Value(100));
+
+  useEffect(() => {
+    return () => {
+      Animated.timing(fadeAnim.current, {
+        toValue: new Animated.Value(0),
+        duration: 500,
+        useNativeDriver: false,
+      }).start();
+    }
+  }, []);
 
   const render = useMemo<JSX.Element>(() => {
     let path;
@@ -23,7 +35,7 @@ export default function Wall({type, x, y}: IProps) {
         path = <Rect width="24" height="24" fill="#755801"/>
         break;
       case 'ice':
-        path = <Rect width="24" height="24" fill="#039BE5"/>
+        path = <Rect width="24" height="24" fill="#0277BD"/>
         break;
       case 'exit':
       path = 

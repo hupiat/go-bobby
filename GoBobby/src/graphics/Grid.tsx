@@ -78,7 +78,7 @@ export default function Grid({protocol, workflowStep, setWorkflowStep}: IProps) 
       ) => {
         const w = walls.find(pos => compareGamePositions(pos, newValue, callback));
         if (!!w && iceWalls.some(ice => compareGamePositions(ice, w))) {
-          setTimeout(() => setIceWallsHit(iceWallsHit => [...iceWallsHit, w]), PLAYER_MOVEMENT_DURATION_MS);
+          setTimeout(() => setIceWallsHit(iceWallsHit => [...iceWallsHit, w]), PLAYER_MOVEMENT_DURATION_MS + 500);
         }
         return !!w || compareGamePositions(exitGate, newValue);
       };
