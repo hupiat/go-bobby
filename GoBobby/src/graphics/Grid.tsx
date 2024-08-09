@@ -36,6 +36,7 @@ export default function Grid({protocol, workflowStep, setWorkflowStep}: IProps) 
   const [playerPosition, setPlayerPosition] = useState<GamePosition>(
     protocol.playerStart,
   );
+  const [iceWallsHit, setIceWallsHit] = useState<GamePosition[]>([]);
   const playerPositionDeferred = useDeferredValue(playerPosition);
 
   useEffect(() => {
@@ -57,6 +58,13 @@ export default function Grid({protocol, workflowStep, setWorkflowStep}: IProps) 
             e[1].props.type !== 'exit',
         )
         .map(e => e[0]);
+      const iceWalls  = [...grid.entries()]
+        .filter(
+          e =>
+            e[1].type.prototype === Wall.prototype &&
+            e[1].props.type === 'ice',
+        )
+        .map(e => e[0]);
       const exitGate = [...grid.entries()]
         .filter(
           e =>
@@ -67,9 +75,13 @@ export default function Grid({protocol, workflowStep, setWorkflowStep}: IProps) 
         .map(e => e[0])[0];
       const isStucked = (
         callback: (first: GamePosition, other: GamePosition) => boolean,
-      ) =>
-        walls.some(pos => compareGamePositions(pos, newValue, callback)) ||
-        compareGamePositions(exitGate, newValue);
+      ) => {
+        const w = walls.find(pos => compareGamePositions(pos, newValue, callback));
+        if (!!w && iceWalls.some(ice => compareGamePositions(ice, w))) {
+          setTimeout(() => setIceWallsHit(iceWallsHit => [...iceWallsHit, w]), PLAYER_MOVEMENT_DURATION_MS);
+        }
+        return !!w || compareGamePositions(exitGate, newValue);
+      };
       switch (playerOrientation) {
         case 'right':
           for (
@@ -207,7 +219,7 @@ export default function Grid({protocol, workflowStep, setWorkflowStep}: IProps) 
   // Post-processing walls
   protocol.walls
     .filter(w => !continueIfRemoved(w))
-    .filter(w => ! compareGamePositions(w.position, protocol.exit))
+    .filter(w => !compareGamePositions(w.position, protocol.exit))
     .forEach((wall, i) =>
       grid.set(
         [wall.position[0], wall.position[1]],
@@ -219,6 +231,14 @@ export default function Grid({protocol, workflowStep, setWorkflowStep}: IProps) 
         />,
       ),
     );
+
+    iceWallsHit.forEach(w => {
+      for (const e of grid) {
+        if (compareGamePositions(w, e[0])) {
+          grid.delete(e[0]);
+        }
+      }
+    });
 
   return (
     <SafeAreaView
