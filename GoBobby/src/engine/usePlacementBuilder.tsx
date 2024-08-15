@@ -37,7 +37,7 @@ export default function usePlacementBuilder(): IPlacementBuilder {
         throw Error('x and y must be valid integers for a virtual grid');
       }
       if (x < 0 || y < 0 || x > horizontalSpaces || y > verticalSpaces) {
-        throw Error(
+        console.error(
           'virtual grid dimensions are : horizontal(' +
             horizontalSpaces +
             ') and vertical(' +

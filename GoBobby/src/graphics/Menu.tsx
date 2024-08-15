@@ -35,7 +35,9 @@ export default function Menu({ workflowStep, setWorkflowStep, setPlayerLevel, nu
                     }}>
                         <Text style={{
                             fontSize: 30,
-                            color: "white"
+                            color: "white", 
+                            alignSelf: "center",
+                            marginBottom: 30
                         }}>Go Bobby !</Text>
                         <CustomButton onPress={() => startTransition(() => setWorkflowStep('playing'))}>
                             <Text style = {{ color: "white", margin: 10  }}>Play</Text>
@@ -43,6 +45,12 @@ export default function Menu({ workflowStep, setWorkflowStep, setPlayerLevel, nu
                         <CustomButton onPress={() => startTransition(() => setWorkflowStep('levels_menu'))}>
                             <Text style = {{ color: "white", margin: 10 }}>Levels</Text>
                         </CustomButton>
+                        <Text style={{
+                            fontSize: 20,
+                            color: "white",
+                            alignSelf: "center",
+                            margin: 20
+                        }}>Les niveaux ont été designés à l'aide de ChatGPT, des mises à jour de contenu sont prévues.</Text>
                     </View>
             }
       </SafeAreaView>
