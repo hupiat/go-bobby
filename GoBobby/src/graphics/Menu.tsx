@@ -50,7 +50,7 @@ export default function Menu({ workflowStep, setWorkflowStep, setPlayerLevel, nu
                             color: "white",
                             alignSelf: "center",
                             margin: 20
-                        }}>Les niveaux ont été designés à l'aide de ChatGPT, des mises à jour de contenu sont prévues.</Text>
+                        }}>Levels have been designed helped with ChatGPT. More content to come.</Text>
                     </View>
             }
       </SafeAreaView>
