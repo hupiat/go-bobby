@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 interface IProps {
     onPress: () => void;

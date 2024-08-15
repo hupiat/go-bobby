@@ -1,9 +1,8 @@
 import React, { Dispatch, SetStateAction, useTransition } from "react"
-import { Button, SafeAreaView, Text, View } from "react-native"
+import { SafeAreaView, Text, View } from "react-native"
 import { WorkflowStep } from "../engine/WorkflowStep";
 import MenuLevels from "./MenuLevels";
 import CustomButton from "./CustomButton";
-import { Path, Svg } from "react-native-svg";
 
 interface IProps {
     numberOfLevels: number;

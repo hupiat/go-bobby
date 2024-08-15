@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useTransition } from "react"
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView, Text } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign"
 import { WorkflowStep } from "../engine/WorkflowStep";
 import CustomButton from "./CustomButton";

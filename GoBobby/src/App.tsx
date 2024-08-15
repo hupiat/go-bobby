@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useEffect, useLayoutEffect, useState} from 'react';
+import React, { useLayoutEffect, useState} from 'react';
 
 import useScreenOrientation from './devices/useScreenOrientation';
 import {WorkflowStep} from './engine/WorkflowStep';
@@ -55,7 +55,7 @@ function App(): React.JSX.Element {
         }}>
           <ActivityIndicator size={"large"} style={{
             marginTop: "20%"
-          }} />
+          }} color={"blue"} />
         </SafeAreaView> : 
       <>
         <StatusBar hidden /> 

@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useRef} from 'react';
 import usePlacementBuilder from '../engine/usePlacementBuilder';
-import { Path, Rect, Svg } from 'react-native-svg';
+import { Circle, Line, Path, Rect, Svg } from 'react-native-svg';
 import useGameSizer from './useGameSizer';
 import { Animated } from 'react-native';
 
@@ -32,16 +32,40 @@ export default function Wall({type, x, y}: IProps) {
     const pos = getPositionStyle(x, y).position;
     switch (type) {
       case 'brick':
-        path = <Rect width="24" height="24" fill="#755801"/>
+        path =
+          <>
+              <Rect x="1" y="1" width="22" height="22" fill="#b22222" stroke="#8b0000" stroke-width="2" />
+  
+              <Line x1="1" y1="8" x2="23" y2="8" stroke="#8b0000" stroke-width="2"/>
+              <Line x1="1" y1="16" x2="23" y2="16" stroke="#8b0000" stroke-width="2"/>
+              
+              <Line x1="6" y1="1" x2="6" y2="8" stroke="#8b0000" stroke-width="2"/>
+              <Line x1="18" y1="1" x2="18" y2="8" stroke="#8b0000" stroke-width="2"/>
+              
+              <Line x1="12" y1="8" x2="12" y2="16" stroke="#8b0000" stroke-width="2"/>
+          </>
         break;
       case 'ice':
-        path = <Rect width="24" height="24" fill="#0277BD"/>
+        path = 
+          <>
+            <Rect x="1" y="1" width="22" height="22" fill="#b3e0ff" stroke="#80bfff" stroke-width="2" />
+            <Path d="M4 4 L20 4 L20 20 L4 20 Z" fill="#e6f7ff" opacity="0.7"/>
+            <Path d="M4 4 L20 4 L12 12 Z" fill="#ffffff" opacity="0.5"/>
+          </>
         break;
       case 'exit':
       path = 
         <>
-          <Path d="M0 0H24V24H0V0Z" fill="#1565C0"/>
-          <Path d="M12 0L14.6942 8.2918H23.4127L16.3593 13.4164L19.0534 21.7082L12 16.5836L4.94658 21.7082L7.64074 13.4164L0.587322 8.2918H9.30583L12 0Z" fill="#FBC02D"/>
+          <Circle cx="12" cy="12" r="10" stroke="#1E90FF" stroke-width="2" fill="none" />
+          
+          <Circle cx="12" cy="12" r="6" stroke="#87CEFA" stroke-width="2" fill="none" />
+          
+          <Circle cx="12" cy="12" r="3" fill="#00BFFF" />
+          
+          <Line x1="12" y1="2" x2="12" y2="5" stroke="#00BFFF" stroke-width="1.5"/>
+          <Line x1="12" y1="19" x2="12" y2="22" stroke="#00BFFF" stroke-width="1.5"/>
+          <Line x1="2" y1="12" x2="5" y2="12" stroke="#00BFFF" stroke-width="1.5"/>
+          <Line x1="19" y1="12" x2="22" y2="12" stroke="#00BFFF" stroke-width="1.5"/>
         </>
         break;
     }

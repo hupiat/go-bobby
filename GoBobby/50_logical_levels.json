@@ -733,13 +733,6 @@
             },
             {
                 "position": [
-                    28,
-                    6
-                ],
-                "type": "brick"
-            },
-            {
-                "position": [
                     6,
                     11
                 ],
@@ -1907,6 +1900,13 @@
             2
         ],
         "walls": [
+            {
+                "position": [
+                    15,
+                    4
+                ],
+                "type": "brick"
+            },
             {
                 "position": [
                     22,

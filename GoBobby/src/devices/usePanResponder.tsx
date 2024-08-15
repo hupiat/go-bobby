@@ -1,6 +1,5 @@
 import {
   useDeferredValue,
-  useEffect,
   useLayoutEffect,
   useRef,
   useState,
