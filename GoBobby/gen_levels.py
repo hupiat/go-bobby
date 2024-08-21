@@ -1,3 +1,48 @@
+
+def is_winnable(level):
+    from collections import deque
+    
+    player_start = tuple(level['playerStart'])
+    exit_position = tuple(level['exit'])
+    walls = {tuple(w['position']) for w in level['walls']}
+    
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    
+    def is_edge_brick(position, walls):
+        x, y = position
+        return (x == 0 or x == 30 or y == 0 or y == 13) and position in walls
+
+    def slide(position, direction, walls):
+        while True:
+            next_position = (position[0] + direction[0], position[1] + direction[1])
+            if next_position in walls or not (0 <= next_position[0] < 30 and 0 <= next_position[1] < 13):
+                return position, walls
+            if is_edge_brick(next_position, walls):
+                return position, walls
+            position = next_position
+            
+            # Simulate ice block disappearing
+            if {"position": list(position), "type": "ice"} in level['walls']:
+                walls.remove(position)
+    
+    queue = deque([player_start])
+    visited = {player_start}
+    
+    while queue:
+        current_position = queue.popleft()
+        if current_position == exit_position:
+            return True
+        for direction in directions:
+            new_position, updated_walls = slide(current_position, direction, walls.copy())
+            if new_position not in visited:
+                visited.add(new_position)
+                queue.append(new_position)
+                walls = updated_walls  # Update walls after the ice block is removed
+    
+    return False
+
+
+
 import json
 import random
 
@@ -66,6 +111,8 @@ def generate_logical_levels(num_levels=50, width=30, height=13):
 
     for level_number in range(num_levels):
         level = create_level(level_number)
+        while is_winnable(level) is False:
+            level = create_level(level_number)
         levels.append(level)
 
     return levels
