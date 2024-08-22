@@ -6,13 +6,14 @@ import CustomButton from "./CustomButton";
 
 interface IProps {
     level?: number;
+    workflowStep: WorkflowStep;
     setWorkflowStep: Dispatch<SetStateAction<WorkflowStep>>;
 }
 
 const ICON_SIZE = 20;
 const ICON_COLOR = "white";
 
-export default function HUD({ setWorkflowStep, level } : IProps) {
+export default function HUD({ workflowStep, setWorkflowStep, level } : IProps) {
     const [, startTransition] = useTransition();
     return (
         <SafeAreaView style={{
@@ -31,13 +32,16 @@ export default function HUD({ setWorkflowStep, level } : IProps) {
                         <CustomButton onPress={() => startTransition(() => setWorkflowStep("restarting"))}>
                             <Icon name="retweet" size={ICON_SIZE} color={ICON_COLOR}/>
                         </CustomButton>    
-                        <CustomButton onPress={() => startTransition(() => setWorkflowStep("levels_menu"))}>
-                            <Icon name="profile" size={ICON_SIZE} color={ICON_COLOR}/>
-                            <Text style={{
-                                color: ICON_COLOR,
-                                marginLeft: 10
-                            }}>{level}</Text>
-                        </CustomButton>  
+                        {
+                            workflowStep !== "playing_generative_model" && 
+                            <CustomButton onPress={() => startTransition(() => setWorkflowStep("levels_menu"))}>
+                                <Icon name="profile" size={ICON_SIZE} color={ICON_COLOR}/>
+                                <Text style={{
+                                    color: ICON_COLOR,
+                                    marginLeft: 10
+                                }}>{level}</Text>
+                            </CustomButton>  
+                        }
                     </>
             }
         </SafeAreaView> 

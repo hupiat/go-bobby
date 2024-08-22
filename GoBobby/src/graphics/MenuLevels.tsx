@@ -5,11 +5,12 @@ import { Button, FlatList } from "react-native";
 
 interface IProps {
     numberOfLevels: number;
+    workflowStep: WorkflowStep;
     setWorkflowStep: Dispatch<SetStateAction<WorkflowStep>>;
     setPlayerLevel: Dispatch<SetStateAction<number>>;
 }
 
-export default function MenuLevels({ setWorkflowStep, setPlayerLevel, numberOfLevels }: IProps) {
+export default function MenuLevels({ workflowStep, setWorkflowStep, setPlayerLevel, numberOfLevels }: IProps) {
     const buttonsData = []
 
     for (let i = 0; i < numberOfLevels; i++) {
@@ -21,7 +22,7 @@ export default function MenuLevels({ setWorkflowStep, setPlayerLevel, numberOfLe
 
     return (
         <>
-            <HUD setWorkflowStep={setWorkflowStep} />
+            <HUD workflowStep={workflowStep} setWorkflowStep={setWorkflowStep} />
             <FlatList data={buttonsData} renderItem={item => <Button title={String(item.index + 1)} onPress={() => {
                 setWorkflowStep("playing");
                 setPlayerLevel(item.index);

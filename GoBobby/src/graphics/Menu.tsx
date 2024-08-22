@@ -25,13 +25,17 @@ export default function Menu({ workflowStep, setWorkflowStep, setPlayerLevel, nu
             }}>
             {
                 workflowStep === "levels_menu" ? 
-                    <MenuLevels setWorkflowStep={setWorkflowStep} setPlayerLevel={setPlayerLevel} numberOfLevels={numberOfLevels} /> : 
+                    <MenuLevels 
+                        workflowStep={workflowStep} 
+                        setWorkflowStep={setWorkflowStep} 
+                        setPlayerLevel={setPlayerLevel} 
+                        numberOfLevels={numberOfLevels} /> : 
                     <View style={{
                         display: "flex",
                         flexDirection: "column",
                         alignSelf: "center",
                         justifyContent: "space-around",
-                        height: "70%"
+                        height: "90%"
                     }}>
                         <Text style={{
                             fontSize: 30,
@@ -41,6 +45,9 @@ export default function Menu({ workflowStep, setWorkflowStep, setPlayerLevel, nu
                         }}>Go Bobby !</Text>
                         <CustomButton onPress={() => startTransition(() => setWorkflowStep('playing'))}>
                             <Text style = {{ color: "white", margin: 10  }}>Play</Text>
+                        </CustomButton>
+                        <CustomButton onPress={() => startTransition(() => setWorkflowStep('loading_generative_model'))}>
+                            <Text style = {{ color: "white", margin: 10 }}>Play against a generative model</Text>
                         </CustomButton>
                         <CustomButton onPress={() => startTransition(() => setWorkflowStep('levels_menu'))}>
                             <Text style = {{ color: "white", margin: 10 }}>Levels</Text>

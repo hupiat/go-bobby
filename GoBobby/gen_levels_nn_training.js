@@ -1,6 +1,9 @@
 const tf = require("@tensorflow/tfjs");
 require("tfjs-node-save");
+const fs = require('fs');
 const LEVELS = require("./50_logical_levels.json");
+
+const MODEL_PATH = "file://./gen_levels_model/model.json";
 
 // Déterminer le nombre maximal de murs dans les niveaux
 const maxWalls = Math.max(...LEVELS.map(level => level.walls.length));
@@ -13,15 +16,27 @@ const MODEL_OPTIONS = {
     }
 };
 
-const model = tf.sequential({
-    layers: [
-      tf.layers.dense({inputShape: [2], units: 128, activation: 'relu'}),
-      tf.layers.dense({units: outputSize, activation: 'linear'}), // Sortie de taille fixe
-    ]
-});
-model.compile({optimizer: 'sgd', loss: 'meanSquaredError'});
+async function createOrLoadModel() {
+    let model;
+    if (fs.existsSync('./gen_levels_model/model.json')) {
+        console.log('Loading existing model...');
+        model = await tf.loadLayersModel(MODEL_PATH);
+    } else {
+        console.log('Creating new model...');
+        model = tf.sequential({
+            layers: [
+              tf.layers.dense({inputShape: [2], units: 128, activation: 'relu'}),
+              tf.layers.dense({units: outputSize, activation: 'linear'}), // Sortie de taille fixe
+            ]
+        });
+    }
+    model.compile({optimizer: 'sgd', loss: 'meanSquaredError'});
+    return model;
+}
 
 async function processData() {
+    const model = await createOrLoadModel();
+
     for (const level of LEVELS) {
         const playerStartTensor = tf.tensor2d([level.playerStart], [1, 2]);
 
@@ -36,6 +51,10 @@ async function processData() {
         // Entraîner le modèle avec les positions remplies
         await model.fit(playerStartTensor, outputTensor, MODEL_OPTIONS);
     }
+
+    // Sauvegarder le modèle mis à jour
+    await model.save("file://./gen_levels_model");
+    console.log('Model updated and saved.');
 }
 
-processData().then(() => model.save("file://./gen_levels_model")).catch(console.error);
+processData().catch(console.error);

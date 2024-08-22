@@ -4,7 +4,7 @@ import {StyleSheet} from 'react-native';
 import useScreenOrientation from '../devices/useScreenOrientation';
 import {GamePosition} from './IGridProtocol';
 
-interface IPlacementBuilder {
+export interface IPlacementBuilder {
   horizontalSpaces: number;
   verticalSpaces: number;
   getPositionStyle: (
