@@ -38,18 +38,18 @@ async function processData() {
     const model = await createOrLoadModel();
 
     for (const level of LEVELS) {
-        const playerStartTensor = tf.tensor2d([level.playerStart], [1, 2]);
+        const exitTensor = tf.tensor2d([level.exit], [1, 2]);
 
         // Préparer les cibles : murs avec padding (remplissage) pour atteindre la taille fixe
         const wallPositions = level.walls.flatMap(wall => wall.position);
         const paddedWallPositions = [...wallPositions, ...new Array(outputSize - wallPositions.length).fill(0)];
         const outputTensor = tf.tensor2d([paddedWallPositions], [1, outputSize]);
 
-        console.log('Player Start Shape:', playerStartTensor.shape);
+        console.log('Player Start Shape:', exitTensor.shape);
         console.log('Output Shape:', outputTensor.shape);
 
         // Entraîner le modèle avec les positions remplies
-        await model.fit(playerStartTensor, outputTensor, MODEL_OPTIONS);
+        await model.fit(exitTensor, outputTensor, MODEL_OPTIONS);
     }
 
     // Sauvegarder le modèle mis à jour

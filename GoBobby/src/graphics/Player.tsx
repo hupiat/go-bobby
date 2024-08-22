@@ -11,10 +11,9 @@ interface IProps {
   x: number;
   y: number;
   orientation: PlayerOrientation;
-  workflowPlayerStep: WorkflowStep;
 }
 
-export default function Player({x, y, orientation, workflowPlayerStep}: IProps) {
+export default function Player({x, y, orientation}: IProps) {
   const {getPositionStyle} = usePlacementBuilder();
   const pos = getPositionStyle(x, y).position;
   const movementAnim = useRef<Animated.ValueXY>(
@@ -25,16 +24,14 @@ export default function Player({x, y, orientation, workflowPlayerStep}: IProps) 
   );
 
   useEffect(() => {
-    if (workflowPlayerStep == "playing") {
-      Animated.timing(movementAnim.current, {
-        toValue: new Animated.ValueXY({
-          x: pos.left,
-          y: pos.top,
-        }),
-        duration: PLAYER_MOVEMENT_DURATION_MS,
-        useNativeDriver: false,
-      }).start();
-    }
+    Animated.timing(movementAnim.current, {
+      toValue: new Animated.ValueXY({
+        x: pos.left,
+        y: pos.top,
+      }),
+      duration: PLAYER_MOVEMENT_DURATION_MS,
+      useNativeDriver: false,
+    }).start();
   }, [x, y]);
 
   const render = useMemo<JSX.Element>(() => {

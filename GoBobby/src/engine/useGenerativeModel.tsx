@@ -9,12 +9,25 @@ export interface IGenerativeModel {
 export default function useGenerativeModel(): IGenerativeModel {
 
     const loadGenerativeModel = useCallback(async (): Promise<IGridProtocol> => {
-        const generatePosition = () => Math.round(Math.random() * 10);
+        const generatePosition = (type: "x" | "y") => {
+            // generation with normalization
+            const pos = Math.round(Math.random() * 10);
+            if (pos === 0) {
+                return 1;
+            }
+            if (pos > 13 && type === "y") {
+                return 13;
+            }
+            if (pos > 30 && type === "x") {
+                return 30;
+            }
+            return pos;
+        };
 
-        const playerStart = [generatePosition(), generatePosition()];
-        const exit = [generatePosition(), generatePosition()];
+        const playerStart: [number, number] = [generatePosition("x"), generatePosition("y")];
+        const exit: [number, number] = [generatePosition("x"), generatePosition("y")];
 
-        const walls = await generateWallsJSONFromGenerativeModel();
+        const walls = await generateWallsJSONFromGenerativeModel(exit);
         return {
             name: -1,
             playerStart: playerStart as GamePosition,

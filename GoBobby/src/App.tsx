@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useLayoutEffect, useState} from 'react';
+import React, { useLayoutEffect, useRef, useState} from 'react';
 
 import useScreenOrientation from './devices/useScreenOrientation';
 import {WorkflowStep} from './engine/WorkflowStep';
@@ -18,13 +18,15 @@ import * as LEVELS from '../50_logical_levels.json';
 import { IGridProtocol, WallProtocol } from './engine/IGridProtocol';
 import useGenerativeModel from './engine/useGenerativeModel';
 
+let generativeModel: IGridProtocol | null = null;
+
 const SIZE_LEVELS_JSON = 50;
 const MAX_LEVEL_KEY = getStorageKey("levelMax");
 
 function App(): React.JSX.Element {
   const levelStored = 0
 
-  const [generativeModel, setGenerativeModel] = useState<IGridProtocol | null>(null);
+
   const [playerLevel, setPlayerLevel] = useState<number>(levelStored ? Number(levelStored) : 0);
   const [playerStep, setPlayerStep] = useState<WorkflowStep>('menu');
 
@@ -37,7 +39,7 @@ function App(): React.JSX.Element {
     switch (playerStep) {
       case "loading_generative_model":
         loadGenerativeModel().then(model => {
-          setGenerativeModel(model);
+          generativeModel = model;
           setPlayerStep("playing_generative_model");
         }).catch(console.error);
         break;
@@ -76,7 +78,6 @@ function App(): React.JSX.Element {
               <HUD workflowStep={playerStep} setWorkflowStep={setPlayerStep} level={playerLevel + 1} />
               <Grid
                 protocol={playerStep === "playing_generative_model" ? generativeModel! : (LEVELS as [])[playerLevel]}
-                workflowStep={playerStep}
                 setWorkflowStep={setPlayerStep}
               />
             </>
